@@ -1,0 +1,6 @@
+name: situatedDialogue
+version: 1.0
+author: Sky CH. Wang
+main: me.skywang.situatedDialogue.situatedDialogue
+api-version: 1.14
+website: skywang.me

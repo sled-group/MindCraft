@@ -1,0 +1,22 @@
+git version 2.23.0
+Sky Wang
+sky.wang@yahoo.com
+Attempting to build version: 'latest' use --rev <version> to override
+Found version
+{
+	"name": "2492",
+	"description": "Jenkins build 2492",
+	"refs": {
+		"BuildData": "2dbde4c18d3b3e34142da21d42cea4b1beb33d7d",
+		"Bukkit": "af58d31600e40bb1eaf7caa782e39e1d4f3b82ef",
+		"CraftBukkit": "7554e08e45c7a44d0f16e8078a564f92f3411ec6",
+		"Spigot": "56f84710b85569a76df91e08104baa55000b565a"
+	},
+	"toolsVersion": 101,
+	"javaVersions": [52, 57]
+}
+
+Pulling updates for /Users/skywang/Desktop/agentCommunication/spigot/BuildData/.git
+Successfully fetched updates!
+Checked out: 2dbde4c18d3b3e34142da21d42cea4b1beb33d7d
+Pulling updates for /Users/skywang/Desktop/agentCommunication/spigot/Bukkit/.git

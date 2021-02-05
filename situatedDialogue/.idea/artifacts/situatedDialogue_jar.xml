@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="situatedDialogue:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/situatedDialogue_jar</output-path>
+    <root id="archive" name="situatedDialogue.jar">
+      <element id="module-output" name="situatedDialogue" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../spigot-api-1.14.4-R0.1-20191014.100901-74.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/java/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/../commons-lang3-3.9/commons-lang3-3.9.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/../json-simple-1.1.1.jar" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.1/commons-io-2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
