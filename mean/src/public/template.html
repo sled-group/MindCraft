@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Minecraft Collaborative Combinations</title>
+    <link href="css/fonts/ubuntumono.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.14.1/cytoscape.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container" id="header">
+      <div class="col-md-12">
+        <h1 align="center">The <i>Minecraft Collaborative Combinations</i> Task</h1>
+        <br>
+        <h2 align="center">Your Goal</h2>
+        <br>
+        <p>To complete the game, you need to build structures, collaboratively, with the other player that will join you in the server. You need to build them above each of the middle 2x2 glass <strong>bases</strong>, as shown below. You can build the structures <strong>in any orientation</strong> on these bases.</p>
+        <center><img src="img/stadium.png" style="max-width: 45%"></center>
+        <center>Figure 1: Bases Upon Which To Build Your Structures</center><br>
+        <p>For example, if you were tasked to build the following as one of your structures,</p>
+        <center><img src="img/examplegoal.png" style="max-width: 45%"></center>
+        <center>Figure 2: Example Goal Structure</center><br>
+        <p>building it in any of the following orientations on the bases, as shown, would suffice.</p>
+        <div class="col-md-6">
+          <center><img src="img/examplegoalcomplete1.png" style="max-width: 100%"></center>
+          <center>Figure 3: Example Complete Goal (1)</center><br>
+        </div>
+        <div class="col-md-6">
+          <center><img src="img/examplegoalcomplete2.png" style="max-width: 100%"></center>
+          <center>Figure 4: Example Complete Goal (2)</center><br>
+        </div>
+        <p>There are, in total, 4 structures you need to build. There are also 4 bases. Build only one structure on one base. When you have finished building all structures, your task is complete.</p>
+        <br>
+        <h2 align="center">How To Complete Your Goal</h2>
+        <br>
+        <p>When you enter the server, you will spawn with a set of tools in your inventory.</p>
+        <center><img src="img/exampletools.png" style="max-width: 45%"></center>
+        <center>Figure 5: Example Tools That You Spawn With</center><br>
+        <p>You will also find there to be a set of blocks in the environment as well. These blocks, that are initially in the environment when you first enter the game, are called <strong>mines</strong>. <strong>Mines</strong>, when broken with any tool you have, will produce another material block.</p>
+        <div class="col-md-6">
+          <center><img src="img/examplemines.png" style="max-width: 100%"></center>
+          <center>Figure 6: Example Mines</center><br>
+        </div>
+        <div class="col-md-6">
+          <center><img src="img/examplemining.gif" alt="animated" style="max-width: 100%"></center>
+          <center>Figure 7: Example Mining Action</center><br>
+        </div></div>
+        <p>Different mines will produce different materials. In the next page, you will have a <strong>knowledge base</strong> that contains information provided to you on which mines produce which materials. For example, the interaction shown in Figure 7, will be shown in your knowledge base as the following.</p>
+        <div class="alert alert-info" draggable="true">
+          <center><p style="font-size:100%;"><img src="img/materials/OBSIDIAN.png" style="width:50px"> + ANYTOOL = <img src="img/materials/BROWN_WOOL.png" style="width:50px"></p></center>
+        </div>
+        <center>Figure 8: Example Knowledge Item for Mining Action in Figure 7</center>
+        <br>
+        <p>You may <strong>move</strong> these produced materials by breaking them with a specific tool. When broken with a specific tool, it will cause the material broken to go into your inventory, where you will hold it in your hand. When the material is in your hand, you will not be able to switch to a different tool until you place the material back into the world. An example is shown below.</p>
+
+        <center><img src="img/examplemove.gif" alt="animated" style="max-width: 45%"></center>
+        <center>Figure 8: Example Material Move Action</center><br>
+
+        <p>This interaction will be shown in your knowledge base as the following.</p>
+        <div class="alert alert-info" draggable="true">
+          <center><p style="font-size:100%;"><img src="img/materials/BROWN_WOOL.png" style="width:50px"> + <img src="img/tools/IRON_AXE.png" style="width:50px"> = PICKUP</p></center>
+        </div>
+        <center>Figure 9: Example Knowledge Item for Material Move Action in Figure 8</center>
+        <br>
+
+        <p>Finally, materials blocks, when <strong>combined</strong> in a specific way, will produce a <strong>new material block</strong>, consuming the original blocks. By <strong>combine</strong>, we mean when a certain block is placed on top of another block. An example is shown below.</p>
+
+        <center><img src="img/examplecombine.gif" alt="animated" style="max-width: 45%"></center>
+        <center>Figure 10: Example Material Combine Action</center><br>
+
+        <p>This interaction will be shown in your knowledge base as the following.</p>
+        <div class="alert alert-info" draggable="true">
+          <center><p style="font-size:100%;"><img src="img/materials/SPRUCE_PLANKS.png" style="width:50px"> + <img src="img/materials/BLUE_WOOL.png" style="width:50px"> = <img src="img/materials/BLACK_WOOL.png" style="width:50px"></p></center>
+        </div>
+        <center>Figure 11: Example Knowledge Item for Material Combine Action in Figure 10</center>
+        <br>
+        
+        <p>Using these three types of actions, your goal is to produce your given target structures together with the other player that will join you. Note: your own knowledge base <strong>may or may not be complete</strong>: you might not know how to produce a certain material, or what tool allows you to move a certain material. You might also not have all the tools. In these cases, ask your partner! They might know how to do something, or they may have the correct tool.</p>
+
+        <h3>While you're completing the task in game, we ask that you keep track of which of the 4 structures you're working on to build, and what you think your partner is working on to build. To do this, we provide you with an interface. An example of an interaction with the interface to keep track of this is shown below.</h3>
+
+        <center><img src="img/examplestateinteraction.gif" alt="animated" style="max-width: 70%"></center>
+        <center>Figure 12: Example Interaction with Interface to Keep Track of Structure Building</center><br>
+
+        <h3>Goal structures will be displayed, and we ask that you drag the goal structures to their current status as you work on them in-game.</h3>
+
+        <h2>This concludes the game explanation. To proceed on to the game, press the button below when ready. You may come back to this page at any time: there will be a button for you to do so on the next page.</h2><br>
+
+        <center><button type="button" class="btn btn-success" onclick="gotomainpage();"><h2>Take Me To The Game!</h2></button></center>
+        <br>
+      </div>
+    </div>
+
+    <div class="container" id="knowledge">
+      <div class="col-md-12">
+        <h1 align="center">Your Knowledge</h1>
+        $combine_actions
+        $mine_actions
+        $move_actions
+      </div>
+    </div>
+    <hr>
+    <div class="container" id="states" style="height:100%;">
+      <!--<div class="row">
+        <div class="col-md-4" id="SS-init" style="background-color: #ffffff" ondragover='onDragOver(event);' ondrop='onDrop(event);'>
+          <center><h3>Goal Structures</h3></center>
+          
+          <img src="img/examplegoal1.png" style="max-width: 45%" draggable="true" ondragstart="onDragStart(event);" id=state-1>
+          <img src="img/examplegoal2.png" style="max-width: 45%" draggable="true" ondragstart="onDragStart(event);" id=state-2>
+          <img src="img/examplegoal3.png" style="max-width: 45%" draggable="true" ondragstart="onDragStart(event);" id=state-3>
+          <img src="img/examplegoal4.png" style="max-width: 45%" draggable="true" ondragstart="onDragStart(event);" id=state-4>
+          <div class="alert alert-info" draggable="true" ondragstart="onDragStart(event);" id="state-5"><p style="font-size:100%;">SAME AS ME</p></div>
+          
+          $goal_structures
+        </div>
+        <div class="col-md-2" id="SS-self" style="background-color: #befaf4" ondragover='onDragOver(event);' ondrop='onDrop(event);'>
+          <center><h3>What I Am Currently Working On</h3></center>
+        </div>
+        <div class="col-md-2" id="SS-other" style="background-color: #aefcbe" ondragover='onDragOver(event);' ondrop='onDrop(event);'>
+          <center><h3>What The Other Player is Working On</h3></center>
+        </div>
+        <div class="col-md-4" id="SS-done" style="background-color: #effcae" ondragover='onDragOver(event);' ondrop='onDrop(event);'>
+          <center><h3>Completed</h3></center>
+        </div>
+        -->
+      </div>
+      <br>
+      <br>
+      <center><button type="button" class="btn btn-warning" onclick="gotowelcomepage();"><h2>Take Me Back!</h2></button></center>
+      <br>
+      <script src="code.js"></script>
+    </div>
+
+    <script type="text/javascript">
+
+      var player_number = '1';//$player_number;
+
+      function onDragStart(event) {
+        event
+          .dataTransfer
+          .setData('text/plain', event.target.id);
+
+        event
+          .currentTarget
+          .style
+          .backgroundColor = '#d9edf7'; // Not really needed; just as a reference for now.
+      }
+
+      function onDragOver(event) {
+        event.preventDefault();
+      }
+
+      function onDrop(event) {
+        const id = event
+          .dataTransfer
+          .getData('text');
+
+        const draggableElement = document.getElementById(id);
+        const dropzone = event.target;
+
+        // Only drop into action area divs (AA- = action area)
+        if (dropzone.id.includes("SS-")) {
+          dropzone.appendChild(draggableElement);
+          event
+            .dataTransfer
+            .clearData();
+
+            updateState();
+        }
+      }
+
+      // TODO: Add redundancy in the case of page refresh. On page load, load from database. On drag, update database.
+
+      // SERVER STATE UPDATES
+
+      function updateState() {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/data", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // STATE STRING SCHEMA
+        // BL:action-0action-1,OP:,PA:,PB:,DO:,
+        var state = "";
+
+        // These 2 arrays should be of same length.
+        var state_section_names = ["IN", "SE", "OT", "DO"]
+        var state_sections = [document.getElementById("SS-init"),
+                              document.getElementById("SS-self"),
+                              document.getElementById("SS-other"),
+                              document.getElementById("SS-done")];
+
+        for (var i = 0; i < state_sections.length; i++) {
+
+          state = state.concat(state_section_names[i]);
+          state = state.concat(":");
+          childNodes = state_sections[i].childNodes;
+
+          for (var j = 0; j < childNodes.length; j++) {
+            if (childNodes[j].id != null) { // Null pointer exception handling
+              if (childNodes[j].id.includes("state-")) {
+                state = state.concat(childNodes[j].id);
+              }
+            }
+          }
+          state = state.concat(",");
+        }
+        console.log(state);
+
+        xhr.send(JSON.stringify({
+            player: player_number,
+            state: state
+        }));
+      }
+    </script>
+
+    <script type="text/javascript">
+      window.onload = document.getElementById("knowledge").style.display = "none";
+      window.onload = document.getElementById("states").style.display = "none";
+
+      function gotowelcomepage() {
+        window.onload = document.getElementById("knowledge").style.display = "none";
+        window.onload = document.getElementById("states").style.display = "none";
+        window.onload = document.getElementById("header").style.display = "block";
+      }
+
+      function gotomainpage() {
+        window.onload = document.getElementById("knowledge").style.display = "block";
+        window.onload = document.getElementById("states").style.display = "block";
+        window.onload = document.getElementById("header").style.display = "none";
+      }
+    </script>
+
+  </body>
+
+</html>

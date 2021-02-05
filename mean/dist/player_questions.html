@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- This code is for demonstration purposes only.  You should not hotlink to Github, Rawgit, or files from the Cytoscape.js documentation in your production apps. -->
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+<link href="css/fonts/ubuntumono.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet_questions.css" media="screen">
+<meta charset=utf-8 />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+<title>Player Questions Page</title>
+</head>
+
+<body>
+	<center><h2>Please Answer The Following Questions</h2></center>
+	<center><p>By clicking on the items below to indicate YES (uncrossed) or NO (crossed).</p></center>
+	<center><p>Press Complete when done, and close the window to continue!</p></center>
+	<ul id="myUL"></ul>
+	<center><button type="button" class="btn btn-primary btn-lg btn-block" onclick="complete()">Complete</button></center>
+	<ul id="complete_alert"></ul>
+  <script>
+  	var completed = false;
+
+  	function complete() {
+  		if (completed == false) {
+	  		var p = document.createElement("p");
+	  		var inputValue = "Submitted! Please close the window now to return to the game.";
+	  		var t = document.createTextNode(inputValue);
+	  		p.appendChild(t);
+	  		document.getElementById("complete_alert").appendChild(p);
+	  		completed = true;
+	  	}
+  	}
+
+  	let params = new URLSearchParams(location.search);
+  	var questions = params.getAll('questions');
+  	for (var i = 0; i < questions.length; i++) {
+  		newElement(questions[i]);
+  	}
+
+	// // Create a "close" button and append it to each list item
+	// var myNodelist = document.getElementsByTagName("LI");
+	// var i;
+	// for (i = 0; i < myNodelist.length; i++) {
+	//   var span = document.createElement("SPAN");
+	//   var txt = document.createTextNode("\u00D7");
+	//   span.className = "close";
+	//   span.appendChild(txt);
+	//   myNodelist[i].appendChild(span);
+	// }
+
+	// // Click on a close button to hide the current list item
+	// var close = document.getElementsByClassName("close");
+	// var i;
+	// for (i = 0; i < close.length; i++) {
+	//   close[i].onclick = function() {
+	//     var div = this.parentElement;
+	//     div.style.display = "none";
+	//   }
+	// }
+
+	// Add a "checked" symbol when clicking on a list item
+	var list = document.querySelector('ul');
+	list.addEventListener('click', function(ev) {
+	  if (ev.target.tagName === 'LI') {
+	    ev.target.classList.toggle('checked');
+	  }
+	}, false);
+
+	// Create a new list item when clicking on the "Add" button
+	function newElement() {
+	  var li = document.createElement("li");
+	  var inputValue = document.getElementById("myInput").value;
+	  var t = document.createTextNode(inputValue);
+	  li.appendChild(t);
+	  if (inputValue === '') {
+	    alert("You must write something!");
+	  } else {
+	    document.getElementById("myUL").appendChild(li);
+	  }
+	  document.getElementById("myInput").value = "";
+
+	  var span = document.createElement("SPAN");
+	  var txt = document.createTextNode("\u00D7");
+	  span.className = "close";
+	  span.appendChild(txt);
+	  li.appendChild(span);
+
+	  for (i = 0; i < close.length; i++) {
+	    close[i].onclick = function() {
+	      var div = this.parentElement;
+	      div.style.display = "none";
+	    }
+	  }
+	}
+
+	// New list element given parameter
+	function newElement(element) {
+		var li = document.createElement("li");
+		var inputValue = element;
+		var t = document.createTextNode(inputValue);
+		li.appendChild(t);
+		document.getElementById("myUL").appendChild(li);
+	}
+  </script>
+</body>
+
+</html>

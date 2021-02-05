@@ -1,0 +1,21 @@
+<div *ngIf="datum" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="datum._id">Datum Details</h2>
+    <h2 *ngIf="!datum._id">New Datum</h2>
+  </div>
+</div>
+<div *ngIf="datum" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="datum-player">Player</label>
+      <input class="form-control" name="datum-player" [(ngModel)]="datum.player" placeholder="Player"/>
+    </div>
+    <div class="form-group">
+      <label for="datum-state">Stae</label>
+      <input class="form-control" name="datum-state" [(ngModel)]="datum.state" placeholder="State"/>
+    </div>
+    <button class="btn btn-primary" *ngIf="!datum._id" (click)="createDatum(datum)">Create</button>
+    <button class="btn btn-info" *ngIf="datum._id" (click)="updateDatum(datum)">Update</button>
+    <button class="btn btn-danger" *ngIf="datum._id" (click)="deleteDatum(datum._id)">Delete</button>
+  </form>
+</div>
