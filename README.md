@@ -29,11 +29,11 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
       4. To exit the MySQL commandline, `exit`.
    5. To create your MySQL database (where all MCC user activity is recorded), enter the MySQL commandline this time with `mysql -u root -p`, and then entering the password you just created.
    6. In the commandline interface, `CREATE DATABASE minecraft;` to create, and then `SHOW DATABASES;` to manually confirm the creation of the `minecraft` database. Before you `exit`, run `SHOW GLOBAL VARIABLES LIKE 'PORT';` to confirm the port that the MySQL server is running on (by default, it should be 3306).
-   7. Finally, set up game server plugin authentication details:
+   7. Finally, set up game server plugin authentication details! Before you proceed: if this is your first time setting this up, the files listed below may not have been created yet. To create these files, go ahead and start the server once with `bash startServer.sh`. You're going to see a _ton_ of errors appear, but hold out for now! When the server is done spinning up, enter `stop` to stop the server, and then proceed onto these sub-steps.
       1. Open `spigot/plugins/situatedDialogue/config.yml`, and change:
          1. `mysql_password` to what you defined in 2.4.2.
          1. `mysql_port` to what you just confirmed in 2.4.6 (default is 3306).
-      2. Open `spigot/plugins/LogBlock/config.yml`, and change the same lines as above, this time under section `mysql`.
+      2. Open `spigot/plugins/LogBlock/config.yml`, and change the same lines as above, this time under section `mysql`. Remember to also change the MySQL user here to `root` (default initialization has it as something else)!
 3. __NPM__ (for reference, Node.JS guidelines are adapted from [here](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/))
    1. Package lists should already be up-to-date, so running `sudo apt install nodejs` and `sudo apt install npm` will suffice; this will install the latest versions.
 4. __MongoDB__ (for reference, Mongo guidelines are adapted from [here](https://medium.com/faun/install-mongodb-on-aws-ubuntu-ec2-instance-6794cd8e3b4e)) These steps are necessary mainly because I have used a cookie cutter MEAN stack setup, even though the underlying web server doesn't _really_ use Mongo at _all_.
@@ -53,6 +53,6 @@ All recording of user data -both game server and through the web server- are con
 
 Both the game server and web server are designed to be run concurrently in parallel. To achieve this, set up two `tmux`es and run the following sections in separate muxes.
 
-__Game Server__: Run `startServer.sh`. Edit the parameters passed to the plan generator python script if desired before running the server. If it's your first time running the server, you _may_ have to go the newly-generated `spigot/eula.txt` and change `eula=false` to `eula=true`.
+__Game Server__: Run `bash startServer.sh`. Edit the parameters passed to the plan generator python script if desired before running the server. If it's your first time running the server, you _may_ have to go the newly-generated `spigot/eula.txt` and change `eula=false` to `eula=true`.
 \
 __Web Server__: Navigate to the `mean` folder and run `npm start`. Do this _after_ the game server has been successfully spun up.
