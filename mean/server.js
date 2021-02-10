@@ -36,20 +36,24 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
 // PAGES (HOME/P1/P2/ADMIN)
 
 app.get('/player1', function(req, res) {
-    res.sendFile(__dirname + '/dist/' +'player1.html')
+    res.sendFile(__dirname + '/dist/' +'player1.html');
+    console.log("Player 1 waiting");
 });
 app.get('/player2', function(req, res) {
-    res.sendFile(__dirname + '/dist/' +'player2.html')
+    res.sendFile(__dirname + '/dist/' +'player2.html');
+    console.log("Player 2 waiting");
 });
 
 
 var player1_ready = false;
 var player2_ready = false;
 app.get('/player1_ready', function(req, res) {
-    res.send(200, {"ready": player1_ready});
+    // res.send(200, {"ready": player1_ready});
+    res.status(200).send({"ready": player1_ready});
 });
 app.get('/player2_ready', function(req, res) {
-    res.send(200, {"ready": player2_ready});
+    // res.send(200, {"ready": player2_ready});
+    res.status(200).send({"ready": player2_ready});
 });
 app.get('/player1_isready', function(req, res) {
     player1_ready = true;
@@ -59,10 +63,12 @@ app.get('/player2_isready', function(req, res) {
 });
 
 app.get('/player1_knowledge', function(req, res) {
-    res.sendFile(__dirname + '/dist/' +'player1_knowledge.html')
+    res.sendFile(__dirname + '/dist/' +'player1_knowledge.html');
+    console.log("Player 1 ready");
 });
 app.get('/player2_knowledge', function(req, res) {
-    res.sendFile(__dirname + '/dist/' +'player2_knowledge.html')
+    res.sendFile(__dirname + '/dist/' +'player2_knowledge.html');
+    console.log("Player 2 ready");
 });
 
 // Questions are passed as request parameters

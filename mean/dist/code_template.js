@@ -52,17 +52,17 @@ var cy = cytoscape({
       })
     .selector('.outline')
       .css({
-        "color": "#fff",
-        "text-outline-color": "#888",
-        "text-outline-width": 3
+        "color": "#000",
+        "text-outline-color": "#fff",
+        "text-outline-width": 10
       })
     .selector('edge')
       .css({
         'curve-style': 'bezier',
-        'width': 6,
+        'width': 12,
         'target-arrow-shape': 'triangle',
-        'line-color': '#ffaaaa',
-        'target-arrow-color': '#ffaaaa'
+        'line-color': '#ff0000',
+        'target-arrow-color': '#ff0000'
       })
     //$selectors
     /*

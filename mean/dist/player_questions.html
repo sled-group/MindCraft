@@ -29,6 +29,7 @@
 	  		p.appendChild(t);
 	  		document.getElementById("complete_alert").appendChild(p);
 	  		completed = true;
+			close()
 	  	}
   	}
 
@@ -100,6 +101,8 @@
 		var inputValue = element;
 		var t = document.createTextNode(inputValue);
 		li.appendChild(t);
+		li.appendChild(document.createTextNode("Yes"));
+		li.appendChild(document.createTextNode("No"));
 		document.getElementById("myUL").appendChild(li);
 	}
   </script>

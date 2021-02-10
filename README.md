@@ -1,9 +1,11 @@
 # Minecraft Collaborative Combinations (MCC)
-### Installation Instructions
+
+## Installation Instructions
 
 This README assumes that the user is about to set up the MCC task on a to-be-newly-created _Ubuntu-based AWS EC2 Server_. If not, some commands may be invalid (e.g. `apt-get` vs. `apt`). This has been tested on both Ubuntu versions 18 and 20.
 
 __Server Setup & Port Forwarding__ (for reference, AWS port forwarding guidelines are adapted from [here](https://medium.com/@sumekenov/how-to-launch-minecraft-server-on-aws-7f4b9f7febf7)):
+
 1. Launch an EC2 Instance, choosing an _Ubuntu_-based x86 Amazon Machine Image such as __Ubuntu Server 20.04 LTS (HVM), SSD Volume Type__.
 2. Choose an instance type. Minimum resource requirements are relatively high, seeing as we are going to run web & game servers concurrently on the same machine. Testing has indicated that instances like `t2.xlarge` with at least 16 gigs of RAM work fine.
 3. Leave the options specified in `3. Configure Instance`, `4. Add Storage`, and `5. Add Tags` as default.
@@ -38,16 +40,16 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
    1. Run `wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -`
    2. Run `echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list`
    3. Run `sudo apt update` and `sudo apt install -y mongodb-org` to install Mongo.
-   5. Run `sudo systemctl start mongod` to start the service and `sudo systemctl status mongod` to check service status.
-   6. Finally, run `sudo systemctl enable mongod` to enable Mongo to start on every server reboot.
+   4. Run `sudo systemctl start mongod` to start the service and `sudo systemctl status mongod` to check service status.
+   5. Finally, run `sudo systemctl enable mongod` to enable Mongo to start on every server reboot.
 
-### File Structure
+## File Structure
 
 The MCC environment is split into __three__ main modules: (1) _initialization_, by which task variables (e.g. number of games, complexity of games, and more) are set to customized or default values; (2) _the game server_, a [Bukkit/Spigot](https://dev.bukkit.org/)-made Minecraft multiplayer server that hosts the game itself and records all in-game interactions; and (3) _the web server_, a MEAN-stack (mainly, Node.JS) web server that records webpage user interactions, where currently recording of player mental states takes place.
 
 All recording of user data -both game server and through the web server- are consolidated into a local MySQL database, the authentication details of which are to be specifiied in initialization files (or left as default).
 
-### Execution
+## Execution
 
 Both the game server and web server are designed to be run concurrently in parallel. To achieve this, set up two `tmux`es and run the following sections in separate muxes.
 

@@ -52,19 +52,19 @@ var cy = cytoscape({
       })
     .selector('.outline')
       .css({
-        "color": "#fff",
-        "text-outline-color": "#888",
-        "text-outline-width": 3
+        "color": "#000",
+        "text-outline-color": "#fff",
+        "text-outline-width": 10
       })
     .selector('edge')
       .css({
         'curve-style': 'bezier',
-        'width': 6,
+        'width': 12,
         'target-arrow-shape': 'triangle',
-        'line-color': '#ffaaaa',
-        'target-arrow-color': '#ffaaaa'
+        'line-color': '#ff0000',
+        'target-arrow-color': '#ff0000'
       })
-    .selector('#RED_WOOL').css({'background-image':'img/materials/RED_WOOL'}).selector('#MAGENTA_WOOL').css({'background-image':'img/materials/MAGENTA_WOOL'}).selector('#SOUL_SAND').css({'background-image':'img/materials/SOUL_SAND'}).selector('#ORANGE_WOOL').css({'background-image':'img/materials/ORANGE_WOOL'}).selector('#BROWN_WOOL').css({'background-image':'img/materials/BROWN_WOOL'}).selector('#JUNGLE_PLANKS').css({'background-image':'img/materials/JUNGLE_PLANKS'}).selector('#ACACIA_PLANKS').css({'background-image':'img/materials/ACACIA_PLANKS'}).selector('#DARK_OAK_PLANKS').css({'background-image':'img/materials/DARK_OAK_PLANKS'})
+    .selector('#GRAY_WOOL').css({'background-image':'img/materials/GRAY_WOOL'}).selector('#COBBLESTONE').css({'background-image':'img/materials/COBBLESTONE'}).selector('#CYAN_WOOL').css({'background-image':'img/materials/CYAN_WOOL'}).selector('#BROWN_WOOL').css({'background-image':'img/materials/BROWN_WOOL'}).selector('#ORANGE_WOOL').css({'background-image':'img/materials/ORANGE_WOOL'}).selector('#DARK_OAK_PLANKS').css({'background-image':'img/materials/DARK_OAK_PLANKS'}).selector('#ACACIA_PLANKS').css({'background-image':'img/materials/ACACIA_PLANKS'}).selector('#JUNGLE_PLANKS').css({'background-image':'img/materials/JUNGLE_PLANKS'})
     /*
     .selector('#bird')
       .css({
@@ -101,7 +101,7 @@ var cy = cytoscape({
 
   elements: {
     nodes: [
-      { data: { id: 'RED_WOOL', label: 'Breakable with IRON_HOE' }, classes: ['none-working', 'outline'] },{ data: { id: 'MAGENTA_WOOL', label: 'Breakable with DIAMOND_AXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'SOUL_SAND', label: 'Breakable with IRON_HOE' }, classes: ['none-working', 'outline'] },{ data: { id: 'ORANGE_WOOL', label: 'Breakable with DIAMOND_AXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'BROWN_WOOL', label: 'Breakable with DIAMOND_AXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'JUNGLE_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },{ data: { id: 'ACACIA_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },{ data: { id: 'DARK_OAK_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] }
+      { data: { id: 'GRAY_WOOL', label: 'Breakable with IRON_PICKAXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'COBBLESTONE', label: 'Breakable with GOLDEN_AXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'CYAN_WOOL', label: 'Breakable with IRON_PICKAXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'BROWN_WOOL', label: 'Breakable with IRON_PICKAXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'ORANGE_WOOL', label: 'Breakable with GOLDEN_AXE' }, classes: ['none-working', 'outline'] },{ data: { id: 'DARK_OAK_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },{ data: { id: 'ACACIA_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },{ data: { id: 'JUNGLE_PLANKS', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] }
       /*
       { data: { id: 'cat' }, classes: ['none-working'] },
       { data: { id: 'bird' }, classes: ['none-working'] },
@@ -113,7 +113,7 @@ var cy = cytoscape({
       { data: { id: 'wheat' }, classes: ['none-working'] }*/
     ],
     edges: [
-      { data: { source: 'JUNGLE_PLANKS', target: 'MAGENTA_WOOL' } },{ data: { source: 'ACACIA_PLANKS', target: 'SOUL_SAND' } },{ data: { source: 'DARK_OAK_PLANKS', target: 'BROWN_WOOL' } },{ data: { source: 'ORANGE_WOOL', target: 'RED_WOOL' } },{ data: { source: 'SOUL_SAND', target: 'RED_WOOL' } },{ data: { source: 'MAGENTA_WOOL', target: 'ORANGE_WOOL' } },{ data: { source: 'BROWN_WOOL', target: 'ORANGE_WOOL' } }
+      { data: { source: 'DARK_OAK_PLANKS', target: 'COBBLESTONE' } },{ data: { source: 'ACACIA_PLANKS', target: 'CYAN_WOOL' } },{ data: { source: 'JUNGLE_PLANKS', target: 'ORANGE_WOOL' } },{ data: { source: 'COBBLESTONE', target: 'GRAY_WOOL' } },{ data: { source: 'BROWN_WOOL', target: 'GRAY_WOOL' } },{ data: { source: 'CYAN_WOOL', target: 'BROWN_WOOL' } },{ data: { source: 'ORANGE_WOOL', target: 'BROWN_WOOL' } }
       /*
       { data: { source: 'cat', target: 'bird' } },
       { data: { source: 'bird', target: 'ladybug' } },

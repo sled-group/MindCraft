@@ -18,7 +18,7 @@
   <div class="container" id="welcome_msg">
     <h1><strong>Hello Player 1!</strong></h1>
     <h1>If you are in-game and ready, press the button below!</h1>
-    <h1>🥰Knowledge🥰 will appear once both players have pressed their respective buttons!</h1>
+    <h1>The "recipe" will appear once both players have pressed their respective buttons!</h1>
     <br>
     <button id="ready" type="button" class="btn btn-primary btn-lg" onclick="ready()">I'm Ready!</button>
   </div>
@@ -28,7 +28,7 @@
   <!-- Load application code at the end to ensure DOM is loaded -->
   <script type="text/javascript">
 
-    var materials = ['RED_WOOL','MAGENTA_WOOL','SOUL_SAND','ORANGE_WOOL','BROWN_WOOL'];
+    var materials = ['BROWN_WOOL','COBBLESTONE','GREEN_WOOL','CYAN_WOOL'];
 
     // Types of questions we want:
     // 1. Do you think the other player knows what makes xxx?
@@ -51,7 +51,8 @@
         }
         url_to_open = url_to_open.slice(0,-1);
         window.open(url_to_open, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-      }, 1000);
+        startQuestions();
+      }, 60000);
     }
 
     // If already ready... on page load (e.g. might happen due to refresh)
