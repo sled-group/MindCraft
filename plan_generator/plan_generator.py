@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 import argparse, os, sys, random, json
+from copy import deepcopy
+from random import randint, shuffle
 
 class Node():
     def __init__(self,make=[], tools=None):
@@ -118,19 +120,63 @@ def main(args):
     graph_gen = GraphGenerator(args)
     graph = graph_gen.make_graph()
     print(graph)
-    output_file.writelines(str(graph)+'\n\r')
+        
+    # graph = json.load(open(args.output_path))
+    graph = json.loads(str(graph))
+    ng = len(graph)
+    nm = sum([int(not x['make']) for x in graph])
+    nn = ng - nm - 1
+    
+    print(ng, nm, nn)
+    decision = []
+    if (nn % 2) == 1:
+        decision.append(0)
+    decision += [1]*(nn//2)
+    decision += [2]*(nn//2)
+    
+    shuffle(decision)
+    print(decision)
+    
+    player1_graph = deepcopy(graph)
+    player2_graph = deepcopy(graph)
+    
+    if args.disparate_knowledge:
+        for i in range(1,len(graph)):
+            if graph[i]['make']:
+                n = decision.pop(0)
+                if n==1:
+                    player1_graph[i]['make'] = [[-1,-1]]
+                if n==2:
+                    player2_graph[i]['make'] = [[-1,-1]]
+                
+    output = {
+        'full'    : graph, 
+        'player1' : player1_graph, 
+        'player2' : player2_graph
+        }
+    for i,d in enumerate(zip(graph,player1_graph,player2_graph)):
+        print(i,d)
+        
+    
+    output_file.write( '{\n')
+    output_file.write(',\n'.join([f'\t"{key}": {json.dumps(val)}' for key, val in output.items()]) + '\n')
+    output_file.write( '}\n')
+    # output_file.write(json.dumps(output))
 
     if output_file is not sys.stdout:
         output_file.close()
+        output = json.load(open(args.output_path))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Minecraft plan graph generator.')
     parser.add_argument('--num_final_mat', type=int, default=1, help='Number of final materials necesary.')
-    parser.add_argument('--upper_complex_lim', type=int, default=15, help='Maximum graph complexity limit')
+    parser.add_argument('--upper_complex_lim', type=int, default=5, help='Maximum graph complexity limit')
     parser.add_argument('--lower_complex_lim', type=int, default=5, help='Minimum graph complexity limit')
     parser.add_argument('--num_tools', type=int, default=1, help='Number of tools available in the game.')
     parser.add_argument('--max_tools_per_mat', type=int, default=1, help='Maximum number of tools assignable to a material.')
     parser.add_argument('--output_path', type=str, default='../spigot/plan.json', help='Path to output file.')
+    parser.add_argument('--disparate_knowledge', action='store_true', help='Players will se different subsets of the whole graph if set')
+    parser.add_argument('--disparate_skils', action='store_true', help='Players will se different subsets of the whole graph if set')
     args = parser.parse_args()
     main(args)
