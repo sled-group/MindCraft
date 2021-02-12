@@ -29,6 +29,9 @@ import org.apache.commons.io.FileUtils;
 
 public class situatedDialogue extends JavaPlugin {
     // VARIABLE INITIALIZATION
+    public static boolean contains(final int[] arr, final int key) {
+        return Arrays.stream(arr).anyMatch(i -> i == key);
+    }
 
     // Important
     boolean sharedKnowledge = false; // TODO: CHANGE TO READ FROM CONFIG FILE
@@ -64,6 +67,11 @@ public class situatedDialogue extends JavaPlugin {
     ArrayList<int[]> combine_actions = new ArrayList<>(); // [mat_bottom, mat_top, outputmat]
     ArrayList<int[]> move_actions = new ArrayList<>(); // [mat, tool]
     ArrayList<int[]> mine_actions = new ArrayList<>(); // [mine, mat]
+    // Player Knowledge of Actions
+    ArrayList<int[]> combine_actions_kp1 = new ArrayList<>(); // Same schema as above.
+    ArrayList<int[]> move_actions_kp1 = new ArrayList<>();
+    ArrayList<int[]> combine_actions_kp2 = new ArrayList<>();
+    ArrayList<int[]> move_actions_kp2 = new ArrayList<>();
     // Maximum final state objects are 2x2x5 (r x c x h)
     Material finalState;// 1 material only
     //Material[][][][] finalStates = new Material[4][2][2][5]; // [indexoffinalstateobject][row][column][height]
@@ -160,8 +168,10 @@ public class situatedDialogue extends JavaPlugin {
         initializeGlobalMats();
         try {
             JSONParser parser = new JSONParser();
-            JSONArray actions_JSON = (JSONArray) parser.parse(new FileReader("plan.json"));
+            JSONObject plan_all = (JSONObject) parser.parse(new FileReader("plan.json"));
 
+            // First, get the full plan to initialize global stuff.
+            JSONArray actions_JSON = (JSONArray) plan_all.get("full");
             // Initialize global arrays
             ArrayList<Integer> uniqueTools = new ArrayList<>();
             for (int i = 0; i < actions_JSON.size(); i++) {
@@ -222,10 +232,62 @@ public class situatedDialogue extends JavaPlugin {
             for (int i = 0; i < materials.size(); i++) {
                 materials_neededForCompletion.add(0);
             }
+
+
+            // Disparate Knowledge is below
+            // This is a *very* shitty implementation (lots of duplicated code from above) but it's an easy solution if we want to generate plans from plan_generator.py as opposed to here.
+
+            // Initialize Plan Knowledge for Player1
+            actions_JSON = (JSONArray) plan_all.get("player1");
+            for (int i = 0; i < actions_JSON.size(); i++) {
+                JSONObject action = (JSONObject) actions_JSON.get(i);
+                ArrayList<Long> tools = (ArrayList<Long>) action.get("tools");
+                ArrayList<ArrayList<Long>> make = (ArrayList<ArrayList<Long>>) action.get("make");
+                if (make.size() != 0) {
+                    for (int j = 0; j < make.size(); j++) {
+                        int[] combine_action = new int[3]; combine_action[0] = make.get(j).get(0).intValue(); combine_action[1] = make.get(j).get(1).intValue(); combine_action[2] = i;
+                        combine_actions_kp1.add(combine_action);
+                    }
+                    for (int j = 0; j < tools.size(); j++) {
+                        int[] move_action = new int[2]; move_action[0] = i; move_action[1] = tools.get(j).intValue();
+                        move_actions_kp1.add(move_action);
+                    }
+                } else {
+                    for (int j = 0; j < tools.size(); j++) {
+                        int[] move_action = new int[2]; move_action[0] = i; move_action[1] = tools.get(j).intValue();
+                        move_actions_kp1.add(move_action);
+                    }
+                }
+            }
+            // Initialize Plan Knowledge for Player2
+            actions_JSON = (JSONArray) plan_all.get("player2");
+            for (int i = 0; i < actions_JSON.size(); i++) {
+                JSONObject action = (JSONObject) actions_JSON.get(i);
+                ArrayList<Long> tools = (ArrayList<Long>) action.get("tools");
+                ArrayList<ArrayList<Long>> make = (ArrayList<ArrayList<Long>>) action.get("make");
+                if (make.size() != 0) {
+                    for (int j = 0; j < make.size(); j++) {
+                        int[] combine_action = new int[3]; combine_action[0] = make.get(j).get(0).intValue(); combine_action[1] = make.get(j).get(1).intValue(); combine_action[2] = i;
+                        combine_actions_kp2.add(combine_action);
+                    }
+                    for (int j = 0; j < tools.size(); j++) {
+                        int[] move_action = new int[2]; move_action[0] = i; move_action[1] = tools.get(j).intValue();
+                        move_actions_kp2.add(move_action);
+                    }
+                } else {
+                    for (int j = 0; j < tools.size(); j++) {
+                        int[] move_action = new int[2]; move_action[0] = i; move_action[1] = tools.get(j).intValue();
+                        move_actions_kp2.add(move_action);
+                    }
+                }
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // TODO: Disparate Skills NOT YET IMPLEMENTED IN PLAN_GENERATOR
         // Player Inventories Initialization
         // Players must have at least 1 tool. The tools they hold can be redundant.
         // For simplicity, players will both have the first tool in the "tools" arraylist.
@@ -336,12 +398,12 @@ public class situatedDialogue extends JavaPlugin {
 
             String common_nodes = "";
             String common_selectors = "";
-            String common_edges = "";
+            String common_edges = ""; String p1_edges = ""; String p2_edges = "";
 
             // Material nodes
             int mat_iter_index = 0;
             for (Material material : materials) {
-                String brokenWith = "";
+                String brokenWith = "UNKNOWN"; // Default unknown
                 for (int[] mat_tool : move_actions) {
                     if (mat_tool[0] == mat_iter_index) {
                         brokenWith = tools.get(mat_tool[1]).name();
@@ -351,64 +413,49 @@ public class situatedDialogue extends JavaPlugin {
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
                 mat_iter_index++;
             }
-            // Mines
+            // Mine nodes
             for (Material material : mines) {
                 common_nodes += "{ data: { id: '" + material.name() + "', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
             }
-            // Mining Actions
+            // Mining Actions // [mine, mat]
             for (int[] mine_action : mine_actions) {
-                // [mine, mat]
-                Material mine = mines.get(mine_action[0]);
-                Material material = materials.get(mine_action[1]);
-                common_edges += "{ data: { source: '" + mine.name() + "', target: '" + material.name() + "' } },";
-            }
-            int uid = 0; // unique
-            // Combining Actions (this involves movement as well)
-            for (int[] action : combine_actions) {
-                Material material_bottom = materials.get(action[0]);
-                Material material_top = materials.get(action[1]);
-                Material material_output = materials.get(action[2]);
-                Material tool_bottom = materials.get(0); //init
-                Material tool_top = materials.get(0); //init
-                for (int[] move_action : move_actions) {
-                    if (move_action[0] == action[0]) {
-                        tool_bottom = tools.get(move_action[1]);
-                    }
-                    if (move_action[0] == action[1]) {
-                        tool_top = tools.get(move_action[1]);
-                    }
+                if (!contains(mine_action, -1)) {
+                    Material mine = mines.get(mine_action[0]);
+                    Material material = materials.get(mine_action[1]);
+                    common_edges += "{ data: { source: '" + mine.name() + "', target: '" + material.name() + "' } },";
                 }
-                // TODO: Split player1 player2 knowledge.
-                // Add tools
-                // Bottom - tool - output
-                //common_nodes += "{ data: { id: 'tool-" + uid + "' }, classes: ['tool'] },";
-                //common_selectors += ".selector('#tool-" + uid + "').css({'background-image':'img/tools/" + tool_bottom.name() + "'})";
-                //common_edges += "{ data: { source: '" + material_bottom.name() + "', target: 'tool-" + uid + "' } },";
-                //common_edges += "{ data: { source: 'tool-" + uid + "', target: '" + material_output.name() + "' } },";
-                //uid += 1;
-                // Top - tool - output
-                //common_nodes += "{ data: { id: 'tool-" + uid + "' }, classes: ['tool'] },";
-                //common_selectors += ".selector('#tool-" + uid + "').css({'background-image':'img/tools/" + tool_top.name() + "'})";
-                //common_edges += "{ data: { source: '" + material_top.name() + "', target: 'tool-" + uid + "' } },";
-                //common_edges += "{ data: { source: 'tool-" + uid + "', target: '" + material_output.name() + "' } },";
-                //uid += 1;
-
-                common_edges += "{ data: { source: '" + material_bottom.name() + "', target: '" + material_output.name() + "' } },";
-                uid += 1;
-                common_edges += "{ data: { source: '" + material_top.name() + "', target: '" + material_output.name() + "' } },";
-                uid += 1;
+            }
+            // Combining Actions
+            for (int[] action : combine_actions_kp1) {
+                if (!contains(action, -1)) {
+                    Material material_bottom = materials.get(action[0]);
+                    Material material_top = materials.get(action[1]);
+                    Material material_output = materials.get(action[2]);
+                    p1_edges += "{ data: { source: '" + material_bottom.name() + "', target: '" + material_output.name() + "' } },";
+                    p1_edges += "{ data: { source: '" + material_top.name() + "', target: '" + material_output.name() + "' } },";
+                }
+            }
+            for (int[] action : combine_actions_kp2) {
+                if (!contains(action, -1)) {
+                    Material material_bottom = materials.get(action[0]);
+                    Material material_top = materials.get(action[1]);
+                    Material material_output = materials.get(action[2]);
+                    p2_edges += "{ data: { source: '" + material_bottom.name() + "', target: '" + material_output.name() + "' } },";
+                    p2_edges += "{ data: { source: '" + material_top.name() + "', target: '" + material_output.name() + "' } },";
+                }
             }
 
             common_nodes = common_nodes.substring(0, common_nodes.length() - 1);
-            common_edges = common_edges.substring(0, common_edges.length() - 1);
+            p1_edges = p1_edges.substring(0, p1_edges.length() - 1);
+            p2_edges = p2_edges.substring(0, p2_edges.length() - 1);
 
             p1_js = p1_js.replace("//$selectors", common_selectors);
             p1_js = p1_js.replace("//$nodes", common_nodes);
-            p1_js = p1_js.replace("//$edges", common_edges);
+            p1_js = p1_js.replace("//$edges", common_edges + p1_edges);
             p2_js = p2_js.replace("//$selectors", common_selectors);
             p2_js = p2_js.replace("//$nodes", common_nodes);
-            p2_js = p2_js.replace("//$edges", common_edges);
+            p2_js = p2_js.replace("//$edges", common_edges + p2_edges);
 
             File p1_jsFile = new File("../mean/dist/code_player1.js");
             FileUtils.writeStringToFile(p1_jsFile, p1_js);
