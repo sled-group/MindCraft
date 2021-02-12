@@ -13,22 +13,89 @@
 
 <body>
 	<center><h2>Please Answer The Following Questions</h2></center>
-	<center><p>By clicking on the items below to indicate YES (uncrossed) or NO (crossed).</p></center>
-	<center><p>Press Complete when done, and close the window to continue!</p></center>
-	<ul id="myUL"></ul>
+	<center><p>By clicking on the YES or NO buttons.</p></center>
+	<center><p>Press Complete when done!</p></center>
+	<ul id="myUL">
+		<li>
+			<p id="Q1txt">Question 1</p>
+			<div class="btn-group1" role="group" aria-label="Basic example">
+				<button id="btnq1y" type="button" class="btn btn-secondary" onclick="q1y()">YES</button>
+				<button id="btnq1n" type="button" class="btn btn-secondary" onclick="q1n()">NO</button>
+			</div>
+		</li>
+		<li>
+			<p id="Q2txt">Question 2</p>
+			<div class="btn-group2" role="group" aria-label="Basic example">
+				<button id="btnq2y" type="button" class="btn btn-secondary" onclick="q2y()">YES</button>
+				<button id="btnq2n" type="button" class="btn btn-secondary" onclick="q2n()">NO</button>
+			</div>
+		</li>
+	</ul>
 	<center><button type="button" class="btn btn-primary btn-lg btn-block" onclick="complete()">Complete</button></center>
-	<ul id="complete_alert"></ul>
+	<ul id="complete_alert"><p id="info"></p></ul>
   <script>
-  	var completed = false;
+	var completed = false;
+	var completedq1 = false;
+	var completedq2 = false;
+	var q1val = false;
+	var q2val = false;
+
+	document.getElementById("btnq1y").style.background = '#CCCCCC'
+	document.getElementById("btnq1n").style.background = '#CCCCCC'
+	document.getElementById("btnq2y").style.background = '#CCCCCC'
+	document.getElementById("btnq2n").style.background = '#CCCCCC'
+
+	function q1y() {
+		document.getElementById("btnq1y").style.background = '#00FF00'
+		document.getElementById("btnq1n").style.background = '#CCCCCC'
+		q1val = true;
+		completedq1 = true;
+		completed = completedq1 & completedq2
+	}
+
+	function q1n() {
+		document.getElementById("btnq1n").style.background = '#00FF00'
+		document.getElementById("btnq1y").style.background = '#CCCCCC'
+		q1val = false
+		completedq1 = true;
+		completed = completedq1 & completedq2
+	}
+
+	function q2y() {
+		document.getElementById("btnq2y").style.background = '#00FF00'
+		document.getElementById("btnq2n").style.background = '#CCCCCC'
+		q2val = true
+		completedq2 = true;
+		completed = completedq1 & completedq2
+	}
+
+	function q2n() {
+		document.getElementById("btnq2n").style.background = '#00FF00'
+		document.getElementById("btnq2y").style.background = '#CCCCCC'
+		q2val = false
+		completedq2 = true;
+		completed = completedq1 & completedq2
+	}
 
   	function complete() {
+		console.log(completed, completedq1, completedq2)
   		if (completed == false) {
+			var p = document.createElement("p");
+			var inputValue = "Please answer the two questions";
+			var t = document.createTextNode(inputValue);
+			//document.getElementById("complete_alert").getElementById("info").innerText = inputValue
+			document.getElementById("complete_alert").innerText = inputValue
+			//p.appendChild(t);
+			//document.getElementById("complete_alert").appendChild(p);
+		}
+		else {
 	  		var p = document.createElement("p");
 	  		var inputValue = "Submitted! Please close the window now to return to the game.";
 	  		var t = document.createTextNode(inputValue);
-	  		p.appendChild(t);
-	  		document.getElementById("complete_alert").appendChild(p);
-	  		completed = true;
+			//document.getElementById("complete_alert").getElementById("info").innerText = inputValue
+			document.getElementById("complete_alert").innerText = inputValue
+			//p.appendChild(t);
+			//document.getElementById("complete_alert").appendChild(p);
 			close()
 	  	}
   	}
@@ -36,7 +103,7 @@
   	let params = new URLSearchParams(location.search);
   	var questions = params.getAll('questions');
   	for (var i = 0; i < questions.length; i++) {
-  		newElement(questions[i]);
+  		newElement(questions[i],i);
   	}
 
 	// // Create a "close" button and append it to each list item
@@ -96,14 +163,18 @@
 	}
 
 	// New list element given parameter
-	function newElement(element) {
-		var li = document.createElement("li");
-		var inputValue = element;
-		var t = document.createTextNode(inputValue);
-		li.appendChild(t);
-		li.appendChild(document.createTextNode("Yes"));
-		li.appendChild(document.createTextNode("No"));
-		document.getElementById("myUL").appendChild(li);
+	function newElement(element,i) {
+		if (i == 0) {
+			document.getElementById("Q1txt").innerText = element
+		}
+		else {
+			document.getElementById("Q2txt").innerText = element
+		}
+		// var li = document.createElement("li");
+		// var inputValue = element;
+		// var t = document.createTextNode(inputValue);
+		// li.appendChild(t);
+		// document.getElementById("myUL").appendChild(li);
 	}
   </script>
 </body>
