@@ -2,6 +2,26 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
+var mysql = require('mysql');
+
+// Mental State database connection
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "minecraft"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Webserver has successfully connected to the MYSQL database!");
+});
+// Mental State database table creation if not exists
+let create_table_if_not_exists = 'create table if not exists mental_states(id int primary key auto_increment, player varchar(10)not null, state varchar(255)not null)';
+con.query(create_table_if_not_exists, function (err, result) {
+    if (err) throw err;
+    console.log("Created Table mental_states If Not Exists");
+});
+
 
 var DATA_COLLECTION = "data";
 
@@ -84,6 +104,19 @@ app.get('/img/materials/:matname', function(req, res) {
 
 app.get('/img/tools/:toolname', function(req, res) {
   res.sendFile(__dirname + '/dist/img/tools/' + req.params.toolname + '.png');
+});
+
+// Endpoints for pushing player mental state recordings into the MYSQL Database
+app.get('/mentalRecord/:player/:state', function(req, res) {
+    var sql = "INSERT INTO mental_states (player, state) VALUES ?";
+    var values = [
+      [req.params.player, req.params.state]
+    ];
+    con.query(sql, [values], function (err, result) {
+      if (err) throw err;
+      console.log("Number of records inserted: " + result.affectedRows);
+    });
+    console.log("Player mental state successfully recorded.");
 });
 
 // Generic error handler used by all endpoints.

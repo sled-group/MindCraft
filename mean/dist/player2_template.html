@@ -49,7 +49,7 @@
           question = question.replace("XXX", materials[Math.floor(Math.random() * materials.length)]);
           url_to_open += 'questions=' + question + '&';
         }
-        url_to_open = url_to_open.slice(0,-1);
+        url_to_open += 'player=' + 'player2';
         window.open(url_to_open, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
         startQuestions();
       }, 60000);
