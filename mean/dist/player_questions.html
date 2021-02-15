@@ -98,11 +98,10 @@
 			//document.getElementById("complete_alert").appendChild(p);
 
 			// Send request to mentalRecord endpoint which logs player mental state into the database
-			// Sky: Did this when very sleepy, wake up later and check if XHR is correct path
 			var mental_state = "QUESTION:" + params.getAll('questions').join('QUESTION:') + "ANSWER:" + [q1val.toString(), q2val.toString()].join('ANSWER:');
 			var player = params.getAll('player').join('');
 			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "mentalRecord/" + player + "/" + mental_state, true);
+			xhr.open("GET", "mentalRecord/" + player + "/" + mental_state, true);
 			xhr.send('');
 			close()
 	  	}
