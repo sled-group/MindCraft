@@ -16,7 +16,7 @@ con.connect(function(err) {
   console.log("Webserver has successfully connected to the MYSQL database!");
 });
 // Mental State database table creation if not exists
-let create_table_if_not_exists = 'create table if not exists mental_states(id int primary key auto_increment, player varchar(10)not null, state varchar(255)not null)';
+let create_table_if_not_exists = 'create table if not exists mental_states(id int primary key auto_increment, player varchar(10)not null, state varchar(255)not null, ts timestamp default current_timestamp)';
 con.query(create_table_if_not_exists, function (err, result) {
     if (err) throw err;
     console.log("Created Table mental_states If Not Exists");
