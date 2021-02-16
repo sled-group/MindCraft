@@ -130,6 +130,7 @@ public class situatedDialogue extends JavaPlugin {
     // Default set of "good mines"
     ArrayList<Material> global_mines = new ArrayList<>();
     // Convenient variables
+    long logFrequency_ticks = 100;
 
     @Override
     public void onEnable() {
@@ -140,12 +141,15 @@ public class situatedDialogue extends JavaPlugin {
         config.addDefault("mysql_database", "minecraft");       // .
         config.addDefault("mysql_requireSSL", false);           // .
         config.addDefault("mysql_user", "root");                // .
-        config.addDefault("mysql_password", "passwordChange");  // .
+        config.addDefault("mysql_password", "password");  // .
         config.options().copyDefaults(true);                                // DEFAULT
         saveConfig();                                                       // DEFAULT
 
         // Listener for player actions
         new PluginListener(this);
+
+        // Global variable setup
+        logFrequency_ticks = config.getLong("logFrequency_ticks");
 
         // MYSQL Connection Setup
         mysql_user = config.getString("mysql_user");
@@ -282,19 +286,18 @@ public class situatedDialogue extends JavaPlugin {
                 }
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // TODO: Disparate Skills NOT YET IMPLEMENTED IN PLAN_GENERATOR
+        // TODO: Disparate / Same Skills Specification NOT YET IMPLEMENTED IN PLAN_GENERATOR
         // Player Inventories Initialization
         // Players must have at least 1 tool. The tools they hold can be redundant.
-        // For simplicity, players will both have the first tool in the "tools" arraylist.
+        // For simplicity, players will have the first tool in the "tools" arraylist, player2 the second, others randomly.
         player1_starting_inventory.add(tools.get(0));
-        player2_starting_inventory.add(tools.get(0));
+        player2_starting_inventory.add(tools.get(1));
         // Other tools will be at random. 0 = player1 only, 1 = player2 only, 2 = both players get it.
-        for (int i = 1; i < tools.size(); i++) {
+        for (int i = 2; i < tools.size(); i++) {
             int seed = random.nextInt(3);
             if (seed == 0) {
                 player1_starting_inventory.add(tools.get(i));
@@ -409,13 +412,13 @@ public class situatedDialogue extends JavaPlugin {
                         brokenWith = tools.get(mat_tool[1]).name();
                     }
                 }
-                common_nodes += "{ data: { id: '" + material.name() + "', label: 'Breakable with " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
                 mat_iter_index++;
             }
             // Mine nodes
             for (Material material : mines) {
-                common_nodes += "{ data: { id: '" + material.name() + "', label: 'Breakable with ANY TOOL' }, classes: ['tool', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with ANY TOOL' }, classes: ['tool', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
             }
             // Mining Actions // [mine, mat]
@@ -680,7 +683,7 @@ class PluginListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(PlayerJoinEvent event) throws SQLException {
         Player joined = event.getPlayer();
         System.out.println("\nPLAYER " + joined.getName() + " HAS JOINED.");
         // If it's not the first time that players are joining...
@@ -713,14 +716,15 @@ class PluginListener implements Listener {
         if (this.plugin.noItemDropping) { event.setCancelled(true); }
     }
 
-    private void initializeOperator(Player joined) {
+    private void initializeOperator(Player joined) throws SQLException {
         System.out.println("THEY ARE AN OPERATOR.");
         joined.setGameMode(GameMode.CREATIVE);
         clearWorld(joined.getWorld());
         spawnMines(joined.getWorld());
+//        enableMovementLogging(); // TODO: This line here is for testing purposes only
     }
 
-    private void initializePlayer(Player joined) {
+    private void initializePlayer(Player joined) throws SQLException {
         // Player 1 slot is empty?
         if (this.plugin.player1_UUID == null) {
             this.plugin.player1_UUID = joined.getUniqueId(); // Set UUID
@@ -729,6 +733,7 @@ class PluginListener implements Listener {
             joined.teleport(player1_spawn);
             initializeInventory(joined, 1);
             System.out.println("THEY ARE PLAYER ONE (1).");
+            joined.sendMessage("YOU ARE PLAYER ONE (1). PLEASE GO TO <same_ip>:8080/player1 IN A WEB BROWSER.");
         } else if (this.plugin.player2_UUID == null) {
             this.plugin.player2_UUID = joined.getUniqueId(); // Set UUID
             World blockWorld = Bukkit.getWorld("flat_world"); // Teleport player to their spawn
@@ -736,9 +741,11 @@ class PluginListener implements Listener {
             joined.teleport(player2_spawn);
             initializeInventory(joined, 2);
             System.out.println("THEY ARE PLAYER TWO (2).");
+            joined.sendMessage("YOU ARE PLAYER TWO (2). PLEASE GO TO <same_ip>:8080/player2 IN A WEB BROWSER.");
             // When both players have joined, Unfreeze, initialize world, send server-wide message.
             this.plugin.freeze = false;
-            //initializeWorld();
+            // Begin movement logging (async process)
+            enableMovementLogging();
             Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("All players have joined! You may now move."));
             clearWorld(joined.getWorld());
             spawnMines(joined.getWorld());
@@ -746,6 +753,69 @@ class PluginListener implements Listener {
             System.out.println("SOMETHING IS VERY WRONG.");
             // TODO: Throw some exception here. PRIORITY: LOW
         }
+    }
+
+    // Begin movement logging (async process)
+    private void enableMovementLogging() throws SQLException {
+
+        // Create table in database if not exists.
+        // SCHEMA: movementLogs
+        //id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT
+        // p_name VARCHAR(50)
+        // p_uuid VARCHAR(50)
+        // x,y,z,pitch,yaw DOUBLE
+        // ts timestamp default current_timestamp
+        String sqlCreate = "create table IF NOT EXISTS movementLogs(" +
+                "id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," +
+                "p_name VARCHAR(50)," +
+                "p_uuid VARCHAR(50)," +
+                "x DOUBLE," +
+                "y DOUBLE," +
+                "z DOUBLE," +
+                "pitch DOUBLE," +
+                "yaw DOUBLE," +
+                "ts timestamp default current_timestamp)";
+        Statement stmt = this.plugin.connection.createStatement();
+        stmt.execute(sqlCreate);
+
+        Bukkit.getScheduler().runTaskTimer(this.plugin, new Runnable() {
+                    public void run() {
+                        for (Player p: Bukkit.getOnlinePlayers()) {
+                            Location p_location = p.getLocation();
+
+                            String p_name = p.getName();
+                            UUID p_uuid = p.getUniqueId();
+                            double x = p_location.getX();
+                            double y = p_location.getY();
+                            double z = p_location.getZ();
+                            float pitch = p_location.getPitch();
+                            float yaw = p_location.getYaw();
+
+//                            System.out.println(
+//                                    p_name + " " + String.valueOf(p_uuid) + " "
+//                                    + String.valueOf(x) + " "
+//                                    + String.valueOf(y) + " "
+//                                    + String.valueOf(z) + " "
+//                                    + String.valueOf(pitch) + " "
+//                                    + String.valueOf(yaw));
+
+                            String insert = "insert into movementLogs(p_name, p_uuid, x, y, z, pitch, yaw)" + " values (?, ?, ?, ?, ?, ?, ?)";
+                            try {
+                                PreparedStatement stmt = plugin.connection.prepareStatement(insert);
+                                stmt.setString(1, p_name);
+                                stmt.setString(2, String.valueOf(p_uuid));
+                                stmt.setDouble(3, x);
+                                stmt.setDouble(4, y);
+                                stmt.setDouble(5, z);
+                                stmt.setDouble(6, pitch);
+                                stmt.setDouble(7, yaw);
+                                stmt.execute();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+        }, 0, this.plugin.logFrequency_ticks);
     }
 
     // Initialize player inventories with tools.
