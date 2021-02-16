@@ -5,6 +5,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QDecoderStream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -742,7 +743,11 @@ class PluginListener implements Listener {
             initializeInventory(joined, 2);
             System.out.println("THEY ARE PLAYER TWO (2).");
             joined.sendMessage("YOU ARE PLAYER TWO (2). PLEASE GO TO <same_ip>:8080/player2 IN A WEB BROWSER.");
-            // When both players have joined, Unfreeze, initialize world, send server-wide message.
+            // When both players have joined, Unfreeze, initialize world, send server-wide message, start logging
+            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+            long unixTime = System.currentTimeMillis() / 1000L;
+            String command = "replay start " + String.valueOf(unixTime);
+            Bukkit.dispatchCommand(console, command);
             this.plugin.freeze = false;
             // Begin movement logging (async process)
             enableMovementLogging();
