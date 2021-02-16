@@ -117,6 +117,7 @@ app.get('/mentalRecord/:player/:state', function(req, res) {
       console.log("Number of records inserted: " + result.affectedRows);
     });
     console.log("Player mental state successfully recorded.");
+    res.send('');
 });
 
 // Generic error handler used by all endpoints.

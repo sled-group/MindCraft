@@ -93,7 +93,7 @@
 	  		var inputValue = "Submitted! Please close the window now to return to the game.";
 	  		var t = document.createTextNode(inputValue);
 			//document.getElementById("complete_alert").getElementById("info").innerText = inputValue
-			document.getElementById("complete_alert").innerText = inputValue
+			document.getElementById("complete_alert").innerText = inputValue;
 			//p.appendChild(t);
 			//document.getElementById("complete_alert").appendChild(p);
 
@@ -102,8 +102,15 @@
 			var player = params.getAll('player').join('');
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", "mentalRecord/" + player + "/" + mental_state, true);
-			xhr.send('');
-			close()
+
+			xhr.onreadystatechange = function() {
+				console.log(xhr.readyState);
+				if (xhr.readyState === 4) {
+					close(); // This doesn't work, sadly. User has to close their own window.
+				}
+			}
+
+			xhr.send(null);
 	  	}
   	}
 
