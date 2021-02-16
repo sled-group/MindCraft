@@ -93,18 +93,24 @@
 	  		var inputValue = "Submitted! Please close the window now to return to the game.";
 	  		var t = document.createTextNode(inputValue);
 			//document.getElementById("complete_alert").getElementById("info").innerText = inputValue
-			document.getElementById("complete_alert").innerText = inputValue
+			document.getElementById("complete_alert").innerText = inputValue;
 			//p.appendChild(t);
 			//document.getElementById("complete_alert").appendChild(p);
 
 			// Send request to mentalRecord endpoint which logs player mental state into the database
-			// Sky: Did this when very sleepy, wake up later and check if XHR is correct path
 			var mental_state = "QUESTION:" + params.getAll('questions').join('QUESTION:') + "ANSWER:" + [q1val.toString(), q2val.toString()].join('ANSWER:');
 			var player = params.getAll('player').join('');
 			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "mentalRecord/" + player + "/" + mental_state, true);
-			xhr.send('');
-			close()
+			xhr.open("GET", "mentalRecord/" + player + "/" + mental_state, true);
+
+			xhr.onreadystatechange = function() {
+				console.log(xhr.readyState);
+				if (xhr.readyState === 4) {
+					close(); // This doesn't work, sadly. User has to close their own window.
+				}
+			}
+
+			xhr.send(null);
 	  	}
   	}
 

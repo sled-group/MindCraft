@@ -6,7 +6,16 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a367fdf8-e330-470f-8bf5-29c49fab10bd" name="Default Changelist" comment="" />
+    <list default="true" id="a367fdf8-e330-470f-8bf5-29c49fab10bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/MCC.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/situatedDialogue_jar/situatedDialogue.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/situatedDialogue_jar/situatedDialogue.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/PluginListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/PluginListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/situatedDialogue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/situatedDialogue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../startServer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../startServer.sh" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +33,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -32,14 +44,16 @@
     </option>
   </component>
   <component name="ProjectId" id="1SFf6At4M8nyIyqbP49uRE2v4j9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="situateddialogue" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../contextualOffensiveness/book-characters-persona-extractor" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -80,10 +94,28 @@
       <workItem from="1585174222105" duration="13307000" />
       <workItem from="1599548941163" duration="33000" />
       <workItem from="1612327840791" duration="4768000" />
+      <workItem from="1612910950502" duration="569000" />
+      <workItem from="1612911686764" duration="639000" />
+      <workItem from="1612991938202" duration="8853000" />
+      <workItem from="1613415388448" duration="1901000" />
+      <workItem from="1613457980245" duration="5947000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
