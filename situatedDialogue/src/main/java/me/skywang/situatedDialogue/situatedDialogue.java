@@ -413,13 +413,13 @@ public class situatedDialogue extends JavaPlugin {
                         brokenWith = tools.get(mat_tool[1]).name();
                     }
                 }
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
                 mat_iter_index++;
             }
             // Mine nodes
             for (Material material : mines) {
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with ANY TOOL' }, classes: ['tool', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| ANY TOOL' }, classes: ['tool', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
             }
             // Mining Actions // [mine, mat]
