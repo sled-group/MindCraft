@@ -5,6 +5,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QDecoderStream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -167,7 +168,7 @@ public class situatedDialogue extends JavaPlugin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        ArrayList<Integer> uniqueTools = new ArrayList<>();
         // Plan Setup
         initializeGlobalMats();
         try {
@@ -177,7 +178,7 @@ public class situatedDialogue extends JavaPlugin {
             // First, get the full plan to initialize global stuff.
             JSONArray actions_JSON = (JSONArray) plan_all.get("full");
             // Initialize global arrays
-            ArrayList<Integer> uniqueTools = new ArrayList<>();
+//            ArrayList<Integer> uniqueTools = new ArrayList<>();
             for (int i = 0; i < actions_JSON.size(); i++) {
                 JSONObject action = (JSONObject) actions_JSON.get(i);
                 ArrayList<Long> tools = (ArrayList<Long>) action.get("tools");
@@ -294,8 +295,16 @@ public class situatedDialogue extends JavaPlugin {
         // Player Inventories Initialization
         // Players must have at least 1 tool. The tools they hold can be redundant.
         // For simplicity, players will have the first tool in the "tools" arraylist, player2 the second, others randomly.
-        player1_starting_inventory.add(tools.get(0));
-        player2_starting_inventory.add(tools.get(1));
+
+        if (uniqueTools.size() == 1) {
+            player1_starting_inventory.add(tools.get(0));
+            player2_starting_inventory.add(tools.get(0));
+        }
+        else
+        {
+            player1_starting_inventory.add(tools.get(0));
+            player2_starting_inventory.add(tools.get(1));
+        }
         // Other tools will be at random. 0 = player1 only, 1 = player2 only, 2 = both players get it.
         for (int i = 2; i < tools.size(); i++) {
             int seed = random.nextInt(3);
@@ -412,13 +421,13 @@ public class situatedDialogue extends JavaPlugin {
                         brokenWith = tools.get(mat_tool[1]).name();
                     }
                 }
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
                 mat_iter_index++;
             }
             // Mine nodes
             for (Material material : mines) {
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "is breakable with ANY TOOL' }, classes: ['tool', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| ANY TOOL' }, classes: ['tool', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
             }
             // Mining Actions // [mine, mat]
@@ -742,7 +751,11 @@ class PluginListener implements Listener {
             initializeInventory(joined, 2);
             System.out.println("THEY ARE PLAYER TWO (2).");
             joined.sendMessage("YOU ARE PLAYER TWO (2). PLEASE GO TO <same_ip>:8080/player2 IN A WEB BROWSER.");
-            // When both players have joined, Unfreeze, initialize world, send server-wide message.
+            // When both players have joined, Unfreeze, initialize world, send server-wide message, start logging
+            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+            long unixTime = System.currentTimeMillis() / 1000L;
+            String command = "replay start " + String.valueOf(unixTime);
+            Bukkit.dispatchCommand(console, command);
             this.plugin.freeze = false;
             // Begin movement logging (async process)
             enableMovementLogging();

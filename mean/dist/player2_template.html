@@ -19,6 +19,7 @@
     <h1><strong>Hello Player 2!</strong></h1>
     <h1>If you are in-game and ready, press the button below!</h1>
     <h1>The "recipe" will appear once both players have pressed their respective buttons!</h1>
+    <h1><b>Please make sure you have Pop-ups enabled!</b></h1>
     <br>
     <button id="ready" type="button" class="btn btn-primary btn-lg" onclick="ready()">I'm Ready!</button>
   </div>
@@ -52,7 +53,7 @@
         url_to_open += 'player=' + 'player2';
         window.open(url_to_open, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
         startQuestions();
-      }, 60000);
+      }, 90000);
     }
 
     // If already ready... on page load (e.g. might happen due to refresh)
