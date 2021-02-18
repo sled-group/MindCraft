@@ -1,0 +1,39 @@
+items:
+  forward:
+    name: '&a» &e10 seconds'
+    id: SKULL_ITEM:3
+    slot: 5
+    owner: MHF_ArrowRight
+    enabled: true
+  backward:
+    name: '&c« &e10 seconds'
+    id: SKULL_ITEM:3
+    slot: 3
+    owner: MHF_ArrowLeft
+    enabled: true
+  speed:
+    name: '&cSlow &8[&eRight&8] &aFast &8[&eShift Right&8]'
+    id: WATCH
+    slot: 1
+    enabled: true
+  pause:
+    name: '&cPause'
+    id: SKULL_ITEM:3
+    slot: 4
+    owner: Push_red_button
+    enabled: true
+  leave:
+    name: '&7Leave replay'
+    id: WOOD_DOOR
+    slot: 8
+    enabled: true
+  resume:
+    name: '&aResume'
+    id: SLIME_BLOCK
+    slot: 4
+    enabled: true
+  teleport:
+    name: '&7Teleport'
+    id: COMPASS
+    slot: 0
+    enabled: true

@@ -35,6 +35,7 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
          1. `mysql_port` to what you just confirmed in 2.4.6 (default is 3306).
       2. Open `spigot/plugins/LogBlock/config.yml`, and change the same lines as above, this time under section `mysql`. Remember to also change the MySQL user here to `root` (default initialization has it as something else)!
       3. Open `mean/server.js` and do the same for MYSQL authentication credentials in the first few lines.
+      4. Open `spigot/plugins/AdvancedReplay` and do the same for `mysql.yml`.
 3. __NPM__ (for reference, Node.JS guidelines are adapted from [here](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/))
    1. Package lists should already be up-to-date, so running `sudo apt install nodejs` and `sudo apt install npm` will suffice; this will install the latest versions.
 4. __MongoDB__ (for reference, Mongo guidelines are adapted from [here](https://medium.com/faun/install-mongodb-on-aws-ubuntu-ec2-instance-6794cd8e3b4e)) These steps are necessary mainly because I have used a cookie cutter MEAN stack setup, even though the underlying web server doesn't _really_ use Mongo at _all_.

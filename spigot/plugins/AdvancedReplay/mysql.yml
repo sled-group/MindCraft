@@ -1,0 +1,4 @@
+host: localhost
+username: root
+database: minecraft
+password: password
