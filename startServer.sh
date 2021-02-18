@@ -22,4 +22,4 @@ printf "Done!\n"
 printf "\nStarting Server...\n\n" | tee -a $log_file
 bash spigot/start.command 2>&1 | tee -a $log_file
 
-mysqldump --add-drop-table -u root --password minecraft > "mcc_${current_time}.sql"
+mysqldump --add-drop-table -u root --password minecraft > "logs/mcc_${current_time}.sql"
