@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a367fdf8-e330-470f-8bf5-29c49fab10bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/MCC.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Manifest.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/situatedDialogue_jar/situatedDialogue.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/situatedDialogue_jar/situatedDialogue.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/PluginListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/PluginListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/situatedDialogue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/skywang/situatedDialogue/situatedDialogue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../startServer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../startServer.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,6 +95,7 @@
       <workItem from="1613415388448" duration="1901000" />
       <workItem from="1613457980245" duration="5947000" />
       <workItem from="1613499036874" duration="321000" />
+      <workItem from="1614849590787" duration="709000" />
     </task>
     <servers />
   </component>

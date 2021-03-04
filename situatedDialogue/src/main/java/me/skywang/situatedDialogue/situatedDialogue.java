@@ -421,13 +421,18 @@ public class situatedDialogue extends JavaPlugin {
                         brokenWith = tools.get(mat_tool[1]).name();
                     }
                 }
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
+                // CLEAR FINAL STATE INDICATION: Recall that final state material = index 0
+                if (mat_iter_index == 0) { // If final state: state completed = green border
+                    common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + " | " + brokenWith + " | GOAL MATERIAL' }, classes: ['completed', 'outline'] },";
+                } else { // Else
+                    common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + " | " + brokenWith + "' }, classes: ['none-working', 'outline'] },";
+                }
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
                 mat_iter_index++;
             }
             // Mine nodes
             for (Material material : mines) {
-                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + "| ANY TOOL' }, classes: ['tool', 'outline'] },";
+                common_nodes += "{ data: { id: '" + material.name() + "', label: '" + material.name() + " | ANY TOOL' }, classes: ['tool', 'outline'] },";
                 common_selectors += ".selector('#" + material.name() + "').css({'background-image':'img/materials/" + material.name() + "'})";
             }
             // Mining Actions // [mine, mat]
