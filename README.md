@@ -58,3 +58,7 @@ Both the game server and web server are designed to be run concurrently in paral
 __Game Server__: Run `bash startServer.sh`. Edit the parameters passed to the plan generator python script if desired before running the server. If it's your first time running the server, you _may_ have to go the newly-generated `spigot/eula.txt` and change `eula=false` to `eula=true`.
 \
 __Web Server__: Navigate to the `mean` folder and run `npm start`. Do this _after_ the game server has been successfully spun up.
+
+## Replay
+
+For replaying a specific previous game, make sure that the correct __plan file__ of the logged game, indicated in the format `logs/logs.XXXXXXX.plan.json` (where XXX is the UNIX time stamp of when the game was played), is copied to the following folder and named as `plan_generator/plan.json`. After this has been done, start the server with `bash spigot/start.command` instead of the usual bash file. 

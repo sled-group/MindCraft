@@ -5,6 +5,7 @@
 mkdir -p logs
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 log_file="logs/logs.${current_time}.txt"
+plan_file="logs/logs.${current_time}.plan.json"
 touch $log_file
 printf "\nLog file created ${log_file}" | tee -a $log_file
 
@@ -15,6 +16,7 @@ printf "\nGenerating plan..."
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=1 --lower_complex_lim=1 --num_tools=2
 python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=1 --disparate_knowledge
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=1 --lower_complex_lim=1 --num_tools=1
+cp plan_generator/plan.json $plan_file
 printf "Done!\n"
 
 
