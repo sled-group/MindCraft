@@ -35,7 +35,7 @@ public class situatedDialogue extends JavaPlugin {
     }
 
     // Important
-    boolean sharedKnowledge = false; // TODO: CHANGE TO READ FROM CONFIG FILE
+    boolean sharedKnowledge = false; // TODO: CHANGE TO READ FROM CONFIG FILE ok this isn't really used here
     // Abilities are implemented via tools. The ability to share tools is controlled by noItemDropping (boolean) below.
 
     // Miscellaneous

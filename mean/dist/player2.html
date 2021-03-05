@@ -16,11 +16,13 @@
 <body>
 
   <div class="container" id="welcome_msg">
-    <h1><strong>Hello Player 2!</strong></h1>
-    <h1>If you are in-game and ready, press the button below!</h1>
+    <h1><strong>Hello <u>Player 2</u>!</strong></h1>
+    <h1>If you are in-game and ready, press ready the button below!</h1>
     <h1>The "recipe" will appear once both players have pressed their respective buttons!</h1>
+    <h1>For a tutorial & instructions of the task you are asked to complete, click the tutorial button below!</h1>
     <br>
     <button id="ready" type="button" class="btn btn-primary btn-lg" onclick="ready()">I'm Ready!</button>
+    <button id="ready" type="button" class="btn btn-info btn-lg" onclick="window.open('tutorial','_blank')">Tutorial</button>
   </div>
 
   <object id="knowledge" type="text/html" data="player2_knowledge" style="display:none;"></object>

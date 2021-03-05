@@ -7,7 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a367fdf8-e330-470f-8bf5-29c49fab10bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Manifest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mean/dist/player1.html" beforeDir="false" afterPath="$PROJECT_DIR$/../mean/dist/player1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mean/dist/player2.html" beforeDir="false" afterPath="$PROJECT_DIR$/../mean/dist/player2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mean/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../mean/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/skywang/situatedDialogue/situatedDialogue.java" afterDir="false" />
     </list>
@@ -96,6 +98,7 @@
       <workItem from="1613457980245" duration="5947000" />
       <workItem from="1613499036874" duration="321000" />
       <workItem from="1614849590787" duration="709000" />
+      <workItem from="1614915789245" duration="674000" />
     </task>
     <servers />
   </component>

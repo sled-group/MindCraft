@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- This code is for demonstration purposes only.  You should not hotlink to Github, Rawgit, or files from the Cytoscape.js documentation in your production apps. -->
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+<link href="css/fonts/ubuntumono.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
+<meta charset=utf-8 />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+<title>Tutorial Page</title>
+<script src="cytoscape.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+
+  <div class="container" id="main">
+    <div class="col-md-12">
+      <h1>Welcome to the tutorial page!</h1>
+      <br>
+      
+      <p><u>Your goal:</u> Your goal is to collaboratively create, with another player, a certain <u>goal material</u> in-game. Unlike traditional Minecraft, materials here can be made and interacted with in the following ways.</p>
+
+      <p>When you enter the server, you will find there to be a set of blocks already in the environment. These initial blocks are <u>mines</u>: that, when attempted to be destroyed by <u>any tool</u>, will produce a certain new block. Destroying the mine does not remove it; you can continiously create certain blocks this way.</p>
+      
+        <center><img src="img/tutorial/examplemining.gif" style="max-width: 50%"></center>
+        <center>Figure 1: Mining; Breaking the OBSIDIAN_BLOCK creates a new BROWN_BLOCK</center><br>
+
+      <p>When you click ready on the webpage, you will be presented with your <u>knowledge page</u>. There, you will be presented with information on how to create certain blocks. For example, what certain mines produce will be shown as:</p>
+
+        <center><img src="img/tutorial/examplemining_knowledge.png" style="max-width: 50%"></center>
+        <center>Figure 2: Mining, as shown in the Knowledge Page.</center><br>
+
+      <p>In the above image, the BIRCH_PLANK Mine, indicated as such with no border around the icon, can be broken with ANY TOOL. Certain blocks can only be broken with certain tools; for instance, the WHITE_WOOL that the mine produces can only be broken with a GOLDEN_SHOVEL.</p>
+
+      <p>When you enter the server, you will spawn with a set of tools in your inventory.</p>
+
+        <center><img src="img/tutorial/exampletools.png" style="max-width: 50%"></center>
+        <center>Figure 3: Example tools that you spawn with; from left to right, IRON_PICKAXE, DIAMOND_PICKAXE, GOLD_PICKAXE</center><br>
+
+      <p>You may move these produced materials by breaking them with a specific tool, which will cause the material to go into your inventory.</p>
+
+        <center><img src="img/tutorial/examplemove.gif" style="max-width: 50%"></center>
+        <center>Figure 4: Example material move action</center><br>
+
+      <p>To create certain materials not spawned by Mines, you will have to combine materials together by stacking them on top of each other.</p>
+
+        <center><img src="img/tutorial/examplecombine.gif" style="max-width: 50%"></center>
+        <center>Figure 5: Example material combining; here, stacking a BLUE_BLOCK on top of a WOODEN_PLANK created a BLACK_BLOCK</center><br>
+
+      <p>Similarly, the knowledge page will also present information on how certain blocks combine to make certain blocks. For example, what certain combining actions produce will be shown as:</p>
+
+        <center><img src="img/tutorial/example_knowledge_combine.png" style="max-width: 50%"></center>
+        <center>Figure 6: Example material combining knowledge; here, a SOUL_SAND, stacked with a MAGENTA_WOOL, creates a BLACK_WOOL block</center><br>
+
+      <p>Finally, the goal material that you are tasked to collaboratively create will be indicated in the knowledge page by a <u>green border outline</u>, and be listed as a <u>goal material</u> explciitly in its caption. For example:</p>
+
+        <center><img src="img/tutorial/example_goal.png" style="max-width: 50%"></center>
+        <center>Figure 7: Example goal block; here, creating YELLOW_WOOL is the goal.</center><br>
+
+      <p>You can create the goal block anywhere in the map; once you do, you and your partner may exit the game.</p>
+
+      <p>During the game, you are asked to perodicially record your beliefs in popups. You will be asked questions about whether certain blocks have been created, and things about your in-game partner. Try to answer them as best as you can as they come up!</p>
+
+        <center><img src="img/tutorial/examplequestions.png" style="max-width: 50%"></center>
+        <center>Figure 8: Example questions that pop up perodically</center><br>
+
+      <p>And that's all you need to know! Return to the page and click "I'm Ready" to begin the game!</p>
+
+      <br><br>
+    </div>
+  </div>
+
+</body>
+
+</html>

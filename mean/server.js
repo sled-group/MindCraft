@@ -63,6 +63,10 @@ app.get('/player2', function(req, res) {
     res.sendFile(__dirname + '/dist/' +'player2.html');
     console.log("Player 2 waiting");
 });
+app.get('/tutorial', function(req, res) {
+    res.sendFile(__dirname + '/dist/' +'tutorial.html');
+    console.log("Tutorial page opened");
+});
 
 
 var player1_ready = false;
@@ -104,6 +108,10 @@ app.get('/img/materials/:matname', function(req, res) {
 
 app.get('/img/tools/:toolname', function(req, res) {
   res.sendFile(__dirname + '/dist/img/tools/' + req.params.toolname + '.png');
+});
+
+app.get('/img/tutorial/:img', function(req, res) {
+  res.sendFile(__dirname + '/dist/img/tutorial/' + req.params.img);
 });
 
 // Endpoints for pushing player mental state recordings into the MYSQL Database
