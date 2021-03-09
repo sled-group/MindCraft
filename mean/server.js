@@ -95,8 +95,16 @@ app.get('/player2_knowledge', function(req, res) {
     console.log("Player 2 ready");
 });
 
+// needs timer based proevcss that randomizes and decises what player gets which question
+var questions = [
+  ['Have you created XXMATERIALXX until now?', 'Has the other player made XXMATERIALXX until now'],
+  ['Do you know how to make XXMATERIALXX?', 'Do you think the other player knows how to make XXMATERIALXX?'],
+  ['What are you making right now?', 'What do you think the other player is making right now?'] // gets dropdown
+]
+
 // Questions are passed as request parameters
 app.get('/player_questions', function(req, res) {
+    // don't send file, read and str replace questions]
     res.sendFile(__dirname + '/dist/' +'player_questions.html')
 });
 
@@ -120,6 +128,7 @@ app.get('/mentalRecord/:player/:state', function(req, res) {
     var values = [
       [req.params.player, req.params.state]
     ];
+    console.log(values.toString().replace('\n',''))
     con.query(sql, [values], function (err, result) {
       if (err) throw err;
       console.log("Number of records inserted: " + result.affectedRows);

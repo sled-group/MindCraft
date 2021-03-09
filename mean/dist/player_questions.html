@@ -20,6 +20,7 @@
 			<p id="Q1txt">Question 1</p>
 			<div class="btn-group1" role="group" aria-label="Basic example">
 				<button id="btnq1y" type="button" class="btn btn-secondary" onclick="q1y()">YES</button>
+				<button id="btnq1m" type="button" class="btn btn-secondary" onclick="q1m()">MAYBE</button>
 				<button id="btnq1n" type="button" class="btn btn-secondary" onclick="q1n()">NO</button>
 			</div>
 		</li>
@@ -27,58 +28,140 @@
 			<p id="Q2txt">Question 2</p>
 			<div class="btn-group2" role="group" aria-label="Basic example">
 				<button id="btnq2y" type="button" class="btn btn-secondary" onclick="q2y()">YES</button>
+				<button id="btnq2m" type="button" class="btn btn-secondary" onclick="q2m()">MAYBE</button>
 				<button id="btnq2n" type="button" class="btn btn-secondary" onclick="q2n()">NO</button>
 			</div>
 		</li>
+		<li>
+			<p id="Q3txt">Question 3</p>
+			<div class="dropdown">
+				<button id="dropbtn" onclick="q3()" class="dropbtn">Unselected</button>
+				<div id="myDropdown" class="dropdown-content">
+				  <button id="opt0" type="button" class="btn btn-secondary" onclick="q3sel('opt0')">Not Sure</button>
+				  <button id="optX" type="button" class="btn btn-secondary" onclick="q3sel('optX')">Material_X</button>
+				</div>
+			  </div>
+		</li>
 	</ul>
-	<center><button type="button" class="btn btn-primary btn-lg btn-block" onclick="complete()">Complete</button></center>
+	<center><button type="button" class="btn btn-primary btn-lg btn-block" onclick="complete()">Submit</button></center>
 	<ul id="complete_alert"><p id="info"></p></ul>
   <script>
+
+	// To be replaced by server.py
+	var questions = [
+		'XXQ1XX',
+		'XXQ2XX',
+		'XXQ3XX'
+		]
+
 	var completed = false;
 	var completedq1 = false;
 	var completedq2 = false;
-	var q1val = false;
-	var q2val = false;
+	var completedq3 = false;
+	var q1val = 'NO';
+	var q2val = 'NO';
+	var q3val = 'NOT_SURE';
 
-	document.getElementById("btnq1y").style.background = '#CCCCCC'
-	document.getElementById("btnq1n").style.background = '#CCCCCC'
-	document.getElementById("btnq2y").style.background = '#CCCCCC'
-	document.getElementById("btnq2n").style.background = '#CCCCCC'
+	document.getElementById("btnq1y").style.background 	= '#CCCCCC'
+	document.getElementById("btnq1m").style.background 	= '#CCCCCC'
+	document.getElementById("btnq1n").style.background 	= '#CCCCCC'
+	document.getElementById("btnq2y").style.background 	= '#CCCCCC'
+	document.getElementById("btnq2m").style.background 	= '#CCCCCC'
+	document.getElementById("btnq2n").style.background 	= '#CCCCCC'
+	document.getElementById("dropbtn").style.background = '#CCCCCC'
+	document.getElementById("dropbtn").style.color 		= '#000000'
+
+	/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+	function q3() {
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	function q3sel(val) {
+		var mat_text = document.getElementById('dropbtn').innerText;
+		if (val == 'opt0'){
+			mat_text = 'NOT_SURE';
+		}
+		else {
+			mat_text = document.getElementById(val).innerText;
+		}
+		document.getElementById('dropbtn').innerText = mat_text;
+		q3val = mat_text;
+		completedq3 = true;
+		completed = completedq1 & completedq2 & completedq3;
+		document.getElementById("dropbtn").style.background = '#00FF00';
+	}
+	
+	// Close the dropdown menu if the user clicks outside of it
+	window.onclick = function(event) {
+		if (!event.target.matches('.dropbtn')) {
+			var dropdowns = document.getElementsByClassName("dropdown-content");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+				var openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains('show')) {
+					openDropdown.classList.remove('show');
+				}
+			}
+		}
+	}
 
 	function q1y() {
 		document.getElementById("btnq1y").style.background = '#00FF00'
 		document.getElementById("btnq1n").style.background = '#CCCCCC'
-		q1val = true;
+		document.getElementById("btnq1m").style.background = '#CCCCCC'
+		q1val = 'YES';
 		completedq1 = true;
-		completed = completedq1 & completedq2
+		completed = completedq1 & completedq2 & completedq3;
 	}
 
 	function q1n() {
 		document.getElementById("btnq1n").style.background = '#00FF00'
 		document.getElementById("btnq1y").style.background = '#CCCCCC'
-		q1val = false
+		document.getElementById("btnq1m").style.background = '#CCCCCC'
+		q1val = 'NO';
 		completedq1 = true;
-		completed = completedq1 & completedq2
+		completed = completedq1 & completedq2 & completedq3;
+	}
+
+	function q1m() {
+		document.getElementById("btnq1m").style.background = '#00FF00'
+		document.getElementById("btnq1y").style.background = '#CCCCCC'
+		document.getElementById("btnq1n").style.background = '#CCCCCC'
+		q1val = 'MAYBE';
+		completedq1 = true;
+		completed = completedq1 & completedq2 & completedq3;
 	}
 
 	function q2y() {
 		document.getElementById("btnq2y").style.background = '#00FF00'
 		document.getElementById("btnq2n").style.background = '#CCCCCC'
-		q2val = true
+		document.getElementById("btnq2m").style.background = '#CCCCCC'
+		q2val = 'YES';
 		completedq2 = true;
-		completed = completedq1 & completedq2
+		completed = completedq1 & completedq2 & completedq3;
 	}
 
 	function q2n() {
 		document.getElementById("btnq2n").style.background = '#00FF00'
 		document.getElementById("btnq2y").style.background = '#CCCCCC'
-		q2val = false
+		document.getElementById("btnq2m").style.background = '#CCCCCC'
+		q2val = 'NO';
 		completedq2 = true;
-		completed = completedq1 & completedq2
+		completed = completedq1 & completedq2 & completedq3;
+	}
+
+	function q2m() {
+		document.getElementById("btnq2m").style.background = '#00FF00'
+		document.getElementById("btnq2y").style.background = '#CCCCCC'
+		document.getElementById("btnq2n").style.background = '#CCCCCC'
+		q2val = 'MAYBE';
+		completedq2 = true;
+		completed = completedq1 & completedq2 & completedq3;
 	}
 
   	function complete() {
-		console.log(completed, completedq1, completedq2)
+		console.log(completed, completedq1, completedq2, completedq3)
   		if (completed == false) {
 			var p = document.createElement("p");
 			var inputValue = "Please answer the two questions";
@@ -98,7 +181,7 @@
 			//document.getElementById("complete_alert").appendChild(p);
 
 			// Send request to mentalRecord endpoint which logs player mental state into the database
-			var mental_state = "QUESTION:" + params.getAll('questions').join('QUESTION:') + "ANSWER:" + [q1val.toString(), q2val.toString()].join('ANSWER:');
+			var mental_state = "QUESTION:" + questions.join(';QUESTION:') + ";ANSWER:" + [q1val.toString(), q2val.toString(), q3val.toString()].join(';ANSWER:');
 			var player = params.getAll('player').join('');
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", "mentalRecord/" + player + "/" + mental_state, true);
@@ -115,7 +198,7 @@
   	}
 
   	let params = new URLSearchParams(location.search);
-  	var questions = params.getAll('questions');
+  	//var questions = params.getAll('material');
   	for (var i = 0; i < questions.length; i++) {
   		newElement(questions[i],i);
   	}
@@ -182,7 +265,12 @@
 			document.getElementById("Q1txt").innerText = element
 		}
 		else {
-			document.getElementById("Q2txt").innerText = element
+			if (i == 1) {
+				document.getElementById("Q2txt").innerText = element
+			}
+			else {
+				document.getElementById("Q3txt").innerText = element
+			}
 		}
 		// var li = document.createElement("li");
 		// var inputValue = element;
