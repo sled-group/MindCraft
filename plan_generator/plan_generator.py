@@ -2,6 +2,7 @@
 import argparse, os, sys, random, json
 from copy import deepcopy
 from random import randint, shuffle
+from glob import glob
 
 class Node():
     def __init__(self,make=[], tools=None):
@@ -112,6 +113,15 @@ class GraphGenerator():
         return str(self.__dict__)
 
 def main(args):
+    materials = glob('../mean/dist/img/materials/*.png') + glob('mean/dist/img/materials/*.png')
+    materials = sorted([m.split('/')[-1].split('.')[0] for m in materials])
+    mines = [m for m in materials if 'PLANK' in m]
+    materials = [m for m in materials if not 'PLANK' in m]
+    shuffle(materials)
+    shuffle(mines)
+    # print(materials)
+    # print(mines)
+    
     if args.output_path is None:
         output_file = sys.stdout
     else:
@@ -150,9 +160,11 @@ def main(args):
                     player2_graph[i]['make'] = [[-1,-1]]
                 
     output = {
-        'full'    : graph, 
-        'player1' : player1_graph, 
-        'player2' : player2_graph
+        'materials' : materials,
+        'mines'     : mines,
+        'full'      : graph, 
+        'player1'   : player1_graph, 
+        'player2'   : player2_graph
         }
     for i,d in enumerate(zip(graph,player1_graph,player2_graph)):
         print(i,d)
@@ -166,6 +178,7 @@ def main(args):
     if output_file is not sys.stdout:
         output_file.close()
         output = json.load(open(args.output_path))
+    print(json.dumps(output))
 
 
 if __name__ == "__main__":
