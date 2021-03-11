@@ -115,6 +115,7 @@ class GraphGenerator():
 def main(args):
     materials = glob('../mean/dist/img/materials/*.png') + glob('mean/dist/img/materials/*.png')
     materials = sorted([m.split('/')[-1].split('.')[0] for m in materials])
+    materials = [m for m in materials if not 'NULL' in m]
     mines = [m for m in materials if 'PLANK' in m]
     materials = [m for m in materials if not 'PLANK' in m]
     shuffle(materials)
