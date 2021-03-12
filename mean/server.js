@@ -3,6 +3,8 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var mysql = require('mysql');
+var plan = require('./plan.json')
+const fs = require('fs')
 
 // Mental State database connection
 var con = mysql.createConnection({
@@ -21,6 +23,10 @@ con.query(create_table_if_not_exists, function (err, result) {
     if (err) throw err;
     console.log("Created Table mental_states If Not Exists");
 });
+
+var num_blocks = plan.full.length
+
+
 
 
 var DATA_COLLECTION = "data";
@@ -102,10 +108,78 @@ var questions = [
   ['What are you making right now?', 'What do you think the other player is making right now?'] // gets dropdown
 ]
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+var dropdown_search_str = "<button id=\"optX\" type=\"button\" class=\"btn btn-secondary\" onclick=\"q3sel('optX')\">Material_X</button>"
+var player1_asked = false
+var player2_asked = false
+var a
+var player1_question_choice = [getRandomInt(2), getRandomInt(2), getRandomInt(2)]
+var player2_question_choice = [1-player1_question_choice[0], 1-player1_question_choice[1], 1-player1_question_choice[2]]
+var material1 = getRandomInt(num_blocks)
+var material2 = getRandomInt(num_blocks)
+
+for (i = 0; i < num_blocks; i++){
+  console.log(plan.full[i])
+}
+
+for (i = 0; i < num_blocks; i++){
+  console.log(plan.materials[i])
+}
+
 // Questions are passed as request parameters
 app.get('/player_questions', function(req, res) {
     // don't send file, read and str replace questions]
-    res.sendFile(__dirname + '/dist/' +'player_questions.html')
+    var res_txt = fs.readFileSync('dist/player_questions.html').toString()
+
+    if (req.query.player == 'player1'){
+      var q1 = questions[0][player1_question_choice[0]].replace('XXMATERIALXX',plan.materials[material1])
+      res_txt = res_txt.replace('XXQ1XX', q1)
+
+      var q2 = questions[0][player1_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
+      res_txt = res_txt.replace('XXQ2XX',q2)
+
+      res_txt = res_txt.replace('XXQ3XX',questions[2][player1_question_choice[2]])
+
+      player1_asked = true
+    }
+    else {
+      var q1 = questions[0][player2_question_choice[0]].replace('XXMATERIALXX',plan.materials[material1])
+      res_txt = res_txt.replace('XXQ1XX', q1)
+
+      var q2 = questions[0][player2_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
+      res_txt = res_txt.replace('XXQ2XX',q2)
+
+      res_txt = res_txt.replace('XXQ3XX',questions[2][player2_question_choice[2]])
+
+      player2_asked = true
+    }
+    
+
+    console.log(player1_asked, player2_asked)
+
+    var dropdown_replacement = ''
+    for (i = 0; i < num_blocks; i++){
+      var s = dropdown_search_str
+      s = s.replace('optX', 'opt'+(i+1).toString())
+      s = s.replace('optX', 'opt'+(i+1).toString())
+      s = s.replace('Material_X', plan.materials[i]) + '\n'
+      dropdown_replacement += s
+    }
+    res_txt = res_txt.replace(dropdown_search_str,dropdown_replacement)
+
+    if (player1_asked == true && player2_asked == true) {
+      player1_asked = false
+      player2_asked = false
+      player1_question_choice = [getRandomInt(2), getRandomInt(2), getRandomInt(2)]
+      player2_question_choice = [1-player1_question_choice[0], 1-player1_question_choice[1], 1-player1_question_choice[2]]
+      material1 = getRandomInt(num_blocks)
+      material2 = getRandomInt(num_blocks)
+    }
+
+    res.send(res_txt)
 });
 
 // DATA API ROUTES BELOW
