@@ -138,7 +138,7 @@ app.get('/player_questions', function(req, res) {
       var q1 = questions[0][player1_question_choice[0]].replace('XXMATERIALXX',plan.materials[material1])
       res_txt = res_txt.replace('XXQ1XX', q1)
 
-      var q2 = questions[0][player1_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
+      var q2 = questions[1][player1_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
       res_txt = res_txt.replace('XXQ2XX',q2)
 
       res_txt = res_txt.replace('XXQ3XX',questions[2][player1_question_choice[2]])
@@ -149,7 +149,7 @@ app.get('/player_questions', function(req, res) {
       var q1 = questions[0][player2_question_choice[0]].replace('XXMATERIALXX',plan.materials[material1])
       res_txt = res_txt.replace('XXQ1XX', q1)
 
-      var q2 = questions[0][player2_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
+      var q2 = questions[1][player2_question_choice[1]].replace('XXMATERIALXX',plan.materials[material2])
       res_txt = res_txt.replace('XXQ2XX',q2)
 
       res_txt = res_txt.replace('XXQ3XX',questions[2][player2_question_choice[2]])

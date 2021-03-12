@@ -1,0 +1,7 @@
+{
+	"materials": ["LAPIS_BLOCK", "DIAMOND_BLOCK", "BLUE_WOOL", "ORANGE_WOOL", "COBBLESTONE", "WHITE_WOOL", "RED_WOOL", "MAGENTA_WOOL", "YELLOW_WOOL", "BLACK_WOOL", "OBSIDIAN", "BROWN_WOOL", "IRON_BLOCK", "GOLD_BLOCK", "REDSTONE_BLOCK", "LIME_WOOL", "EMERALD_BLOCK", "GREEN_WOOL", "CYAN_WOOL", "GRAY_WOOL", "SOUL_SAND"],
+	"mines": ["BIRCH_PLANKS", "OAK_PLANKS", "JUNGLE_PLANKS", "DARK_OAK_PLANKS", "SPRUCE_PLANKS", "ACACIA_PLANKS"],
+	"full": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 1]], "tools": [0]}, {"make": [[3, 2]], "tools": [0]}],
+	"player1": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}, {"make": [[3, 2]], "tools": [0]}],
+	"player2": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 1]], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}]
+}
