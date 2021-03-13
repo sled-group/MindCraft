@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -27,6 +28,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import org.apache.commons.io.FileUtils;
+import org.json.simple.parser.ParseException;
 
 public class situatedDialogue extends JavaPlugin {
     // VARIABLE INITIALIZATION
@@ -530,60 +532,92 @@ public class situatedDialogue extends JavaPlugin {
     }
 
     private void initializeGlobalMats() {
-        // Tools
-        global_tools.add(Material.DIAMOND_PICKAXE);
-        global_tools.add(Material.DIAMOND_AXE);
-        global_tools.add(Material.DIAMOND_HOE);
-        global_tools.add(Material.DIAMOND_SHOVEL);
-        global_tools.add(Material.GOLDEN_PICKAXE);
-        global_tools.add(Material.GOLDEN_AXE);
-        global_tools.add(Material.GOLDEN_HOE);
-        global_tools.add(Material.GOLDEN_SHOVEL);
-        global_tools.add(Material.IRON_PICKAXE);
-        global_tools.add(Material.IRON_AXE);
-        global_tools.add(Material.IRON_HOE);
-        global_tools.add(Material.IRON_SHOVEL);
 
-        // Materials
-        global_materials.add(Material.WHITE_WOOL);
-        global_materials.add(Material.BLACK_WOOL);
-        global_materials.add(Material.BLUE_WOOL);
-        global_materials.add(Material.BROWN_WOOL);
-        global_materials.add(Material.CYAN_WOOL);
-        global_materials.add(Material.GRAY_WOOL);
-        global_materials.add(Material.GREEN_WOOL);
-        global_materials.add(Material.LIME_WOOL);
-        global_materials.add(Material.MAGENTA_WOOL);
-        global_materials.add(Material.RED_WOOL);
-        global_materials.add(Material.YELLOW_WOOL);
-        global_materials.add(Material.ORANGE_WOOL);
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("../spigot/plan.json")) {
 
-        // global_materials.add(Material.GRAVEL);
-        // global_materials.add(Material.SAND);
-        // global_materials.add(Material.RED_SAND);
+            JSONObject obj = (JSONObject) jsonParser.parse(reader);
 
-        global_materials.add(Material.COBBLESTONE);
-        global_materials.add(Material.SOUL_SAND);
+            // Read in string arrays from plan json file, match with material
+            JSONArray tool_names_obj =  (JSONArray) obj.get("tools");
+            for (Object tool_name_obj : tool_names_obj) {
+                global_tools.add(Material.getMaterial(tool_name_obj.toString()));
+            }
+            JSONArray material_names_obj =  (JSONArray) obj.get("materials");
+            for (Object material_name_obj : material_names_obj) {
+                global_materials.add(Material.getMaterial(material_name_obj.toString()));
+            }
+            JSONArray mine_names_obj =  (JSONArray) obj.get("mines");
+            for (Object mine_name_obj : mine_names_obj) {
+                global_mines.add(Material.getMaterial(mine_name_obj.toString()));
+            }
 
-        // Mines
-        //global_mines.add(Material.GOLD_BLOCK);
-        //global_mines.add(Material.DIAMOND_BLOCK);
-        //global_mines.add(Material.EMERALD_BLOCK);
-        //global_mines.add(Material.LAPIS_BLOCK);
-        //global_mines.add(Material.REDSTONE_BLOCK);
-        //global_mines.add(Material.IRON_BLOCK);
-        //global_mines.add(Material.OBSIDIAN);
-        global_mines.add(Material.ACACIA_PLANKS);
-        global_mines.add(Material.BIRCH_PLANKS);
-        global_mines.add(Material.DARK_OAK_PLANKS);
-        global_mines.add(Material.JUNGLE_PLANKS);
-        global_mines.add(Material.OAK_PLANKS);
-        global_mines.add(Material.SPRUCE_PLANKS);
+            // System.out.println(global_tools);
+            // System.out.println(global_materials);
+            // System.out.println(global_mines);
 
-        // Shuffle
-        Collections.shuffle(global_materials);
-        Collections.shuffle(global_tools);
-        Collections.shuffle(global_mines);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+//        // Tools
+//        global_tools.add(Material.DIAMOND_PICKAXE);
+//        global_tools.add(Material.DIAMOND_AXE);
+//        global_tools.add(Material.DIAMOND_HOE);
+//        global_tools.add(Material.DIAMOND_SHOVEL);
+//        global_tools.add(Material.GOLDEN_PICKAXE);
+//        global_tools.add(Material.GOLDEN_AXE);
+//        global_tools.add(Material.GOLDEN_HOE);
+//        global_tools.add(Material.GOLDEN_SHOVEL);
+//        global_tools.add(Material.IRON_PICKAXE);
+//        global_tools.add(Material.IRON_AXE);
+//        global_tools.add(Material.IRON_HOE);
+//        global_tools.add(Material.IRON_SHOVEL);
+//
+//        // Materials
+//        global_materials.add(Material.WHITE_WOOL);
+//        global_materials.add(Material.BLACK_WOOL);
+//        global_materials.add(Material.BLUE_WOOL);
+//        global_materials.add(Material.BROWN_WOOL);
+//        global_materials.add(Material.CYAN_WOOL);
+//        global_materials.add(Material.GRAY_WOOL);
+//        global_materials.add(Material.GREEN_WOOL);
+//        global_materials.add(Material.LIME_WOOL);
+//        global_materials.add(Material.MAGENTA_WOOL);
+//        global_materials.add(Material.RED_WOOL);
+//        global_materials.add(Material.YELLOW_WOOL);
+//        global_materials.add(Material.ORANGE_WOOL);
+//
+//        // global_materials.add(Material.GRAVEL);
+//        // global_materials.add(Material.SAND);
+//        // global_materials.add(Material.RED_SAND);
+//
+//        global_materials.add(Material.COBBLESTONE);
+//        global_materials.add(Material.SOUL_SAND);
+//
+//        // Mines
+//        //global_mines.add(Material.GOLD_BLOCK);
+//        //global_mines.add(Material.DIAMOND_BLOCK);
+//        //global_mines.add(Material.EMERALD_BLOCK);
+//        //global_mines.add(Material.LAPIS_BLOCK);
+//        //global_mines.add(Material.REDSTONE_BLOCK);
+//        //global_mines.add(Material.IRON_BLOCK);
+//        //global_mines.add(Material.OBSIDIAN);
+//        global_mines.add(Material.ACACIA_PLANKS);
+//        global_mines.add(Material.BIRCH_PLANKS);
+//        global_mines.add(Material.DARK_OAK_PLANKS);
+//        global_mines.add(Material.JUNGLE_PLANKS);
+//        global_mines.add(Material.OAK_PLANKS);
+//        global_mines.add(Material.SPRUCE_PLANKS);
+//
+//        // Shuffle
+//        Collections.shuffle(global_materials);
+//        Collections.shuffle(global_tools);
+//        Collections.shuffle(global_mines);
     }
 }
 
