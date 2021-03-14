@@ -122,6 +122,12 @@ def main(args):
     shuffle(mines)
     # print(materials)
     # print(mines)
+
+    tools = glob('../mean/dist/img/tools/*.png') + glob('mean/dist/img/tools/*.png')
+    tools = sorted([t.split('/')[-1].split('.')[0] for t in tools])
+    tools = [t for t in tools if not 'NULL' in t]
+    shuffle(tools)
+    # print(tools)
     
     if args.output_path is None:
         output_file = sys.stdout
@@ -163,6 +169,7 @@ def main(args):
     output = {
         'materials' : materials,
         'mines'     : mines,
+        'tools'     : tools,
         'full'      : graph, 
         'player1'   : player1_graph, 
         'player2'   : player2_graph
