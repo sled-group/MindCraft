@@ -181,7 +181,16 @@ toggle between hiding and showing the dropdown content */
 			//document.getElementById("complete_alert").appendChild(p);
 
 			// Send request to mentalRecord endpoint which logs player mental state into the database
-			var mental_state = "QUESTION:" + questions.join(';QUESTION:') + ";ANSWER:" + [q1val.toString(), q2val.toString(), q3val.toString()].join(';ANSWER:');
+			var mental_state = ""
+			mental_state +=  "QUESTION:" 	+ questions[0]
+			mental_state += ";QUESTION:" 	+ questions[1]
+			mental_state += ";QUESTION:" 	+ questions[2]
+			mental_state += ';ANSWER:' 		+ q1val.toString()
+			mental_state += ';ANSWER:' 		+ q2val.toString()
+			mental_state += ';ANSWER:' 		+ q3val.toString()
+			
+			
+			//.join(';QUESTION:') + ";ANSWER:" + [q1val.toString(), q2val.toString(), q3val.toString()].join(';ANSWER:');
 			var player = params.getAll('player').join('');
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", "mentalRecord/" + player + "/" + mental_state, true);
@@ -262,14 +271,14 @@ toggle between hiding and showing the dropdown content */
 	// New list element given parameter
 	function newElement(element,i) {
 		if (i == 0) {
-			document.getElementById("Q1txt").innerText = element
+			document.getElementById("Q1txt").innerText = element + '?'
 		}
 		else {
 			if (i == 1) {
-				document.getElementById("Q2txt").innerText = element
+				document.getElementById("Q2txt").innerText = element + '?'
 			}
 			else {
-				document.getElementById("Q3txt").innerText = element
+				document.getElementById("Q3txt").innerText = element + '?'
 			}
 		}
 		// var li = document.createElement("li");

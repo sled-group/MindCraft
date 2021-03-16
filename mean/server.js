@@ -103,9 +103,9 @@ app.get('/player2_knowledge', function(req, res) {
 
 // needs timer based proevcss that randomizes and decises what player gets which question
 var questions = [
-  ['Have you created XXMATERIALXX until now?', 'Has the other player made XXMATERIALXX until now'],
-  ['Do you know how to make XXMATERIALXX?', 'Do you think the other player knows how to make XXMATERIALXX?'],
-  ['What are you making right now?', 'What do you think the other player is making right now?'] // gets dropdown
+  ['Have you created XXMATERIALXX until now', 'Has the other player made XXMATERIALXX until now'],
+  ['Do you know how to make XXMATERIALXX', 'Do you think the other player knows how to make XXMATERIALXX'],
+  ['What are you making right now', 'What do you think the other player is making right now'] // gets dropdown
 ]
 
 function getRandomInt(max) {
@@ -158,7 +158,7 @@ app.get('/player_questions', function(req, res) {
     }
     
 
-    console.log(player1_asked, player2_asked)
+    // console.log(player1_asked, player2_asked)
 
     var dropdown_replacement = ''
     for (i = 0; i < num_blocks; i++){
@@ -202,12 +202,15 @@ app.get('/mentalRecord/:player/:state', function(req, res) {
     var values = [
       [req.params.player, req.params.state]
     ];
-    console.log(values.toString().replace('\n',''))
+    // console.log('# [' + Date() + '] ' + values.toString().replace('\n',''))
+    // console.log('# [' + Date() + '] ' + req.params.player + ',' + req.params.state)
+    // console.log(req.params)
     con.query(sql, [values], function (err, result) {
       if (err) throw err;
-      console.log("Number of records inserted: " + result.affectedRows);
+      // console.log('# [' + Date() + '] ' + "Number of records inserted: " + result.affectedRows+' # ' + req.params.player + ',' + req.params.state);
+      console.log('# [' + Date() + '] ' + "Number of records inserted: " + result.affectedRows+' # ' + values.toString().replace('\n',''))
     });
-    console.log("Player mental state successfully recorded.");
+    // console.log("Player mental state successfully recorded.");
     res.send('');
 });
 

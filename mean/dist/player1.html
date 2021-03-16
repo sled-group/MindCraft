@@ -30,7 +30,7 @@
   <!-- Load application code at the end to ensure DOM is loaded -->
   <script type="text/javascript">
 
-    var materials = ['BROWN_WOOL','COBBLESTONE','GREEN_WOOL','CYAN_WOOL'];
+    var materials = ['LIME_WOOL','ORANGE_WOOL','EMERALD_BLOCK','YELLOW_WOOL','LAPIS_BLOCK'];
 
     // Types of questions we want:
     // 1. Do you think the other player knows what makes xxx?
@@ -52,9 +52,9 @@
           url_to_open += 'questions=' + question + '&';
         }
         url_to_open += 'player=' + 'player1';
-        window.open(url_to_open, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+        window.open(url_to_open, '_blank', 'location=yes,height=750,width=520,scrollbars=yes,status=yes');
         startQuestions();
-      }, 60000);
+      }, 75000);
     }
 
     // If already ready... on page load (e.g. might happen due to refresh)

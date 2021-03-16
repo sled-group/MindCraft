@@ -1,7 +1,8 @@
 {
-	"materials": ["LAPIS_BLOCK", "DIAMOND_BLOCK", "BLUE_WOOL", "ORANGE_WOOL", "COBBLESTONE", "WHITE_WOOL", "RED_WOOL", "MAGENTA_WOOL", "YELLOW_WOOL", "BLACK_WOOL", "OBSIDIAN", "BROWN_WOOL", "IRON_BLOCK", "GOLD_BLOCK", "REDSTONE_BLOCK", "LIME_WOOL", "EMERALD_BLOCK", "GREEN_WOOL", "CYAN_WOOL", "GRAY_WOOL", "SOUL_SAND"],
-	"mines": ["BIRCH_PLANKS", "OAK_PLANKS", "JUNGLE_PLANKS", "DARK_OAK_PLANKS", "SPRUCE_PLANKS", "ACACIA_PLANKS"],
-	"full": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 1]], "tools": [0]}, {"make": [[3, 2]], "tools": [0]}],
-	"player1": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}, {"make": [[3, 2]], "tools": [0]}],
-	"player2": [{"make": [[1, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 1]], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}]
+	"materials": ["LIME_WOOL", "ORANGE_WOOL", "EMERALD_BLOCK", "YELLOW_WOOL", "LAPIS_BLOCK", "GRAY_WOOL", "MAGENTA_WOOL", "REDSTONE_BLOCK", "SOUL_SAND", "CYAN_WOOL", "DIAMOND_BLOCK", "GREEN_WOOL", "GOLD_BLOCK", "BROWN_WOOL", "IRON_BLOCK", "BLACK_WOOL", "WHITE_WOOL", "BLUE_WOOL", "RED_WOOL", "OBSIDIAN", "COBBLESTONE"],
+	"mines": ["DARK_OAK_PLANKS", "OAK_PLANKS", "ACACIA_PLANKS", "JUNGLE_PLANKS", "BIRCH_PLANKS", "SPRUCE_PLANKS"],
+	"tools": ["IRON_AXE", "DIAMOND_AXE", "DIAMOND_HOE", "DIAMOND_PICKAXE", "GOLDEN_SHOVEL", "IRON_HOE", "GOLDEN_PICKAXE", "IRON_SHOVEL", "GOLDEN_HOE", "IRON_PICKAXE", "DIAMOND_SHOVEL", "GOLDEN_AXE"],
+	"full": [{"make": [[1, 3]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 4]], "tools": [0]}, {"make": [[1, 2]], "tools": [0]}],
+	"player1": [{"make": [[1, 3]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}, {"make": [[1, 2]], "tools": [0]}],
+	"player2": [{"make": [[1, 3]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 4]], "tools": [0]}, {"make": [[-1, -1]], "tools": [0]}]
 }
