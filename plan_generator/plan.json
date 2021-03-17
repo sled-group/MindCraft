@@ -1,2 +1,7 @@
-{'0': {"make": [[1, 9]], "tools": [0]}, '1': {"make": [], "tools": [0]}, '2': {"make": [], "tools": [0]}, '3': {"make": [[4, 1]], "tools": [0]}, '4': {"make": [[2, 1]], "tools": [0]}, '5': {"make": [[7, 1]], "tools": [0]}, '6': {"make": [[5, 4]], "tools": [0]}, '7': {"make": [[3, 8]], "tools": [0]}, '8': {"make": [], "tools": [0]}, '9': {"make": [[6, 2]], "tools": [0]}}
-
+{
+	"materials": ["CYAN_WOOL", "WHITE_WOOL", "ORANGE_WOOL", "RED_WOOL", "MAGENTA_WOOL", "BROWN_WOOL", "IRON_BLOCK", "YELLOW_WOOL", "GREEN_WOOL", "COBBLESTONE", "LIME_WOOL", "BLACK_WOOL", "REDSTONE_BLOCK", "LAPIS_BLOCK", "SOUL_SAND", "GOLD_BLOCK", "EMERALD_BLOCK", "BLUE_WOOL", "GRAY_WOOL", "OBSIDIAN", "DIAMOND_BLOCK"],
+	"mines": ["BIRCH_PLANKS", "JUNGLE_PLANKS", "DARK_OAK_PLANKS", "ACACIA_PLANKS", "SPRUCE_PLANKS", "OAK_PLANKS"],
+	"full": [{"make": [[3, 8]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[7, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 10]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[1, 5]], "tools": [0]}, {"make": [[5, 9]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[6, 11]], "tools": [0]}, {"make": [], "tools": [0]}],
+	"player1": [{"make": [[3, 8]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[7, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 10]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[1, 5]], "tools": [0]}, {"make": [[5, 9]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[6, 11]], "tools": [0]}, {"make": [], "tools": [0]}],
+	"player2": [{"make": [[3, 8]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[7, 4]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[2, 10]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[1, 5]], "tools": [0]}, {"make": [[5, 9]], "tools": [0]}, {"make": [], "tools": [0]}, {"make": [[6, 11]], "tools": [0]}, {"make": [], "tools": [0]}]
+}
