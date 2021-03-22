@@ -30,7 +30,7 @@
   <!-- Load application code at the end to ensure DOM is loaded -->
   <script type="text/javascript">
 
-    var materials = ['LIME_WOOL','ORANGE_WOOL','EMERALD_BLOCK','YELLOW_WOOL','LAPIS_BLOCK'];
+    var materials = ['GOLD_BLOCK','RED_WOOL','WHITE_WOOL','LIME_WOOL','REDSTONE_BLOCK'];
 
     // Types of questions we want:
     // 1. Do you think the other player knows what makes xxx?
@@ -43,18 +43,25 @@
 
     function startQuestions() {
       setTimeout(function() {
-        var url_to_open = 'player_questions?'
+
+        $.getJSON('player2_do_popup', function(data){
+          console.log(data)
+          if(data.ellapsed_time > 75000 && !data.already_asked) {
+            //console.log('popping')
+            var url_to_open = 'player_questions?'
         
-        // Questions
-        for (var i = 0; i < questions_each_time; i++) {
-          var question = questions[Math.floor(Math.random() * questions.length)];
-          question = question.replace("XXX", materials[Math.floor(Math.random() * materials.length)]);
-          url_to_open += 'questions=' + question + '&';
-        }
-        url_to_open += 'player=' + 'player2';
-        window.open(url_to_open, '_blank', 'location=yes,height=750,width=520,scrollbars=yes,status=yes');
-        startQuestions();
-      }, 75000);
+            // Questions
+            for (var i = 0; i < questions_each_time; i++) {
+              var question = questions[Math.floor(Math.random() * questions.length)];
+              question = question.replace("XXX", materials[Math.floor(Math.random() * materials.length)]);
+              url_to_open += 'questions=' + question + '&';
+            }
+            url_to_open += 'player=' + 'player2';
+            window.open(url_to_open, '_blank', 'location=yes,height=750,width=520,scrollbars=yes,status=yes');
+          }
+          startQuestions();
+        })
+      }, 1000);
     }
 
     // If already ready... on page load (e.g. might happen due to refresh)

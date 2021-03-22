@@ -74,23 +74,43 @@ app.get('/tutorial', function(req, res) {
     console.log("Tutorial page opened");
 });
 
+var question_start = Date.now();
 
 var player1_ready = false;
 var player2_ready = false;
 app.get('/player1_ready', function(req, res) {
     // res.send(200, {"ready": player1_ready});
-    res.status(200).send({"ready": player1_ready});
+  res.status(200).send({"ready": player1_ready});
 });
 app.get('/player2_ready', function(req, res) {
     // res.send(200, {"ready": player2_ready});
-    res.status(200).send({"ready": player2_ready});
+  res.status(200).send({"ready": player2_ready});
 });
 app.get('/player1_isready', function(req, res) {
     player1_ready = true;
+    if (player2_ready == true) {
+      question_start = Date.now();
+    }
 });
 app.get('/player2_isready', function(req, res) {
     player2_ready = true;
+    if (player1_ready == true) {
+      question_start = Date.now();
+    }
 });
+
+app.get('/player1_do_popup', function (req,res) {
+  res.status(200).send({
+    "already_asked": player1_asked,
+    "ellapsed_time" : Date.now() - question_start
+  });
+})
+app.get('/player2_do_popup', function (req,res) {
+  res.status(200).send({
+    "already_asked": player2_asked,
+    "ellapsed_time" : Date.now() - question_start
+  });
+})
 
 app.get('/player1_knowledge', function(req, res) {
     res.sendFile(__dirname + '/dist/' +'player1_knowledge.html');
@@ -115,7 +135,6 @@ function getRandomInt(max) {
 var dropdown_search_str = "<button id=\"optX\" type=\"button\" class=\"btn btn-secondary\" onclick=\"q3sel('optX')\">Material_X</button>"
 var player1_asked = false
 var player2_asked = false
-var a
 var player1_question_choice = [getRandomInt(2), getRandomInt(2), getRandomInt(2)]
 var player2_question_choice = [1-player1_question_choice[0], 1-player1_question_choice[1], 1-player1_question_choice[2]]
 var material1 = getRandomInt(num_blocks)
@@ -170,13 +189,16 @@ app.get('/player_questions', function(req, res) {
     }
     res_txt = res_txt.replace(dropdown_search_str,dropdown_replacement)
 
+    // console.log(player1_asked, player2_asked)
     if (player1_asked == true && player2_asked == true) {
+      // console.log("resetting")
       player1_asked = false
       player2_asked = false
       player1_question_choice = [getRandomInt(2), getRandomInt(2), getRandomInt(2)]
       player2_question_choice = [1-player1_question_choice[0], 1-player1_question_choice[1], 1-player1_question_choice[2]]
       material1 = getRandomInt(num_blocks)
       material2 = getRandomInt(num_blocks)
+      question_start = Date.now();
     }
 
     res.send(res_txt)
