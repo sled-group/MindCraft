@@ -87,16 +87,21 @@ app.get('/player2_ready', function(req, res) {
   res.status(200).send({"ready": player2_ready});
 });
 app.get('/player1_isready', function(req, res) {
-    player1_ready = true;
-    if (player2_ready == true) {
+    if (player2_ready == true && player1_ready == false) {
+
       question_start = Date.now();
+      console.log("player1 is ready resetting questions")
     }
+    player1_ready = true;
 });
 app.get('/player2_isready', function(req, res) {
-    player2_ready = true;
-    if (player1_ready == true) {
+    
+    if (player1_ready == true && player2_ready == false) {
+
       question_start = Date.now();
+      console.log("player2 is ready resetting questions")
     }
+    player2_ready = true;
 });
 
 app.get('/player1_do_popup', function (req,res) {
@@ -176,7 +181,7 @@ app.get('/player_questions', function(req, res) {
       player2_asked = true
     }
     
-
+    console.log(req.query.player," asked")
     // console.log(player1_asked, player2_asked)
 
     var dropdown_replacement = ''
@@ -191,7 +196,6 @@ app.get('/player_questions', function(req, res) {
 
     // console.log(player1_asked, player2_asked)
     if (player1_asked == true && player2_asked == true) {
-      // console.log("resetting")
       player1_asked = false
       player2_asked = false
       player1_question_choice = [getRandomInt(2), getRandomInt(2), getRandomInt(2)]
@@ -199,6 +203,7 @@ app.get('/player_questions', function(req, res) {
       material1 = getRandomInt(num_blocks)
       material2 = getRandomInt(num_blocks)
       question_start = Date.now();
+      console.log("resetting questions")
     }
 
     res.send(res_txt)

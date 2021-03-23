@@ -27,8 +27,8 @@ printf "\nLog file created ${log_file}" | tee -a $log_file
 printf "\nGenerating plan..."
 python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=1                       # SK-SS
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2 --disparate_knowledge # DK-DS
-# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2                       # SK-DS
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=1 --disparate_knowledge # DK-SS
+# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2                       # SK-DS
 
 cp spigot/plan.json $plan_file
 cp spigot/plan.json mean/plan.json
@@ -41,10 +41,12 @@ bash spigot/start.command 2>&1 | tee -a $log_file
 
 echo "Minecraft server stopped!"
 
+# asks for password
 mysqldump --add-drop-table -u root --password minecraft > "logs/${current_time}/mcc_${current_time}.sql"
 
 echo "Dataset Dumped!"
 
+# asks for password
 echo "DROP DATABASE minecraft; CREATE DATABASE minecraft;" | mysql -u root -p
 
 echo "Dataset reset!"
