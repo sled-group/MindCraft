@@ -3,7 +3,7 @@
 
 # Spigot Logs
 mkdir -p logs
-my_ip=$(ifconfig  | grep 'inet '| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $2}' | tr '.' '_')
+my_ip=$(ifconfig eno1 | grep 'inet '| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $2}' | tr '.' '_')
 current_time="${my_ip}_$(date "+%Y%m%d_%H%M%S")"
 
 mkdir -p "logs/${current_time}"
@@ -27,9 +27,9 @@ printf "\nLog file created ${log_file}" | tee -a $log_file
 printf "\nGenerating plan..."
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2 --disparate_knowledge # DK-DS
 
-# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=3 --lower_complex_lim=3 --num_tools=3 --disparate_knowledge # DK-DS
+python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=3 --lower_complex_lim=3 --num_tools=3 --disparate_knowledge # DK-DS
 
-python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=4 --lower_complex_lim=4 --num_tools=3 --disparate_knowledge # DK-DS
+# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=4 --lower_complex_lim=4 --num_tools=3 --disparate_knowledge # DK-DS
 
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=1                       # SK-SS
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2 --disparate_knowledge # DK-DS
