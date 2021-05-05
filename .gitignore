@@ -6,3 +6,10 @@ commons-io-2.8.0/*/*/*/*/*html
 logs
 saved_logs
 main_logs
+nohup*
+experiments/__pycache__
+*.log
+*.tmp
+out
+Videos
+.vscode

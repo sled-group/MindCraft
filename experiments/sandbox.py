@@ -46,7 +46,7 @@ def make_splits():
     
     return dataset_splits
 
-def do_split(model,lst,ecp,criterion,optimizer=None):
+def do_split(model,lst,exp,criterion,optimizer=None):
     data = []
     acc_loss = 0
     for game in lst:
@@ -65,12 +65,18 @@ def do_split(model,lst,ecp,criterion,optimizer=None):
                 lbls.append(game.materials_dict[gt[1][2]])
             else:
                 lbls.append(0)
-            prd = prd[ecp:ecp+1]
-            lbls = lbls[ecp:ecp+1]
+            prd = prd[exp:exp+1]
+            lbls = lbls[exp:exp+1]
             data.append([(g,torch.argmax(p).item()) for p,g in zip(prd,lbls)])
             # p, g = zip(*[(p,torch.eye(p.shape[0]).float()[g]) for p,g in zip(prd,lbls)])
-            pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls) if gt==0 or (random.random() < 2/3)]))
-            # pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls)]))
+            if exp == 0:
+                pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls) if gt==0 or (random.random() < 2/3)]))
+            elif exp == 1:
+                pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls) if gt==0 or (random.random() < 5/6)]))
+            elif exp == 2:
+                pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls) if gt==1 or (random.random() < 5/6)]))
+            else:
+                pairs = list(zip(*[(pr,gt) for pr,gt in zip(prd,lbls)]))
             # print(pairs)
             if pairs:
                 p,g = pairs

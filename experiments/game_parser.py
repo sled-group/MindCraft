@@ -134,8 +134,12 @@ class GameParser:
             
     def __next__(self):
         if self.__iter_ts < self.end_ts:
-            d = [x for x in self.dialogue_events if x[0] == self.__iter_ts]
-            d = d if d else None
+            if self.load_dialogue:
+                d = [x for x in self.dialogue_events if x[0] == self.__iter_ts]
+                d = d if d else None
+            else:
+                d = None
+            
             # q = [x for x in self.question_pairs if (x[0][0] < self.__iter_ts) and (x[0][1] > self.__iter_ts)]
             q = [x for x in self.question_pairs if (x[0][1] == self.__iter_ts)]
             q = q[0] if q else None
@@ -295,8 +299,8 @@ class GameParser:
 
     def __parse_dialogue(self):
         self.dialogue_events = []
-        if not self.load_dialogue:
-            return 
+        # if not self.load_dialogue:
+        #     return 
         save_path = os.path.join(self.game_path,f'dialogue_{self.game_path.split("/")[1]}.pkl')
         if os.path.isfile(save_path):
             self.dialogue_events = pickle.load(open( save_path, "rb" ))
