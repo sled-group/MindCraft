@@ -10,6 +10,10 @@ nohup*
 experiments/__pycache__
 *.log
 *.tmp
+partial_rez
+out*
 out
+*.png
+*.torch
 Videos
 .vscode

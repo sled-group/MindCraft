@@ -8,8 +8,7 @@ from game_parser import GameParser
 from model import Model
 import argparse
 
-random.seed(0)
-torch.manual_seed(1)
+
 
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -46,11 +45,11 @@ def make_splits():
     
     return dataset_splits
 
-def do_split(model,lst,exp,criterion,optimizer=None):
+def do_split(model,lst,exp,criterion,optimizer=None,global_plan=False, player_plan=False):
     data = []
     acc_loss = 0
     for game in lst:
-        l = model(game)
+        l = model(game, global_plan=global_plan, player_plan=player_plan)
         prediction = []
         ground_truth = []
         for gt, prd in l:
@@ -114,6 +113,16 @@ def do_split(model,lst,exp,criterion,optimizer=None):
 def main(args):
     print(args)
     print(f'PID: {os.getpid():6d}')
+    
+    if args.seed=='Random':
+        pass
+    elif args.seed=='Fixed':
+        random.seed(0)
+        torch.manual_seed(1)
+    else:
+        print('Seed must be in [Random, Fixed], but got',args.seed)
+        exit()
+    
     dataset_splits = make_splits()
     
     if args.use_dialogue=='Yes':
@@ -138,10 +147,24 @@ def main(args):
     else:
         print('The sequence model must be in [GRU, LSTM, Transformer], but got', args.seq_model)
         exit()
+
+    if args.plans=='Yes':
+        global_plan = (args.pov=='Third') or ((args.pov=='None') and (args.experiment in list(range(3))))
+        player_plan = (args.pov=='First') or ((args.pov=='None') and (args.experiment in list(range(3,9))))
+    elif args.plans=='No' or args.plans is None:
+        global_plan = False
+        player_plan = False
+    else:
+        print('Use Plan must be in [Yes, No], but got',args.plan)
+        exit()
+    print('global_plan', global_plan, 'player_plan', player_plan)
     
     if args.pov=='None':
         val    = [GameParser(f,d_flag,0) for f in dataset_splits['validation']]
         train  = [GameParser(f,d_flag,0) for f in dataset_splits['training']]
+        if args.experiment > 2:
+            val   += [GameParser(f,d_flag,4) for f in dataset_splits['validation']]
+            train += [GameParser(f,d_flag,4) for f in dataset_splits['training']]
     elif args.pov=='Third':
         val    = [GameParser(f,d_flag,3) for f in dataset_splits['validation']]
         train  = [GameParser(f,d_flag,3) for f in dataset_splits['training']]
@@ -153,7 +176,6 @@ def main(args):
     else:
         print('POV must be in [None, First, Third], but got', args.pov)
         exit()
-
 
     model = Model(seq_model).to(DEVICE)
 
@@ -184,9 +206,9 @@ def main(args):
         print(f'{os.getpid():6d} {epoch+1:4d},',end=' ')
         shuffle(train)
         model.train()
-        do_split(model,train,args.experiment,criterion,optimizer)
+        do_split(model,train,args.experiment,criterion,optimizer=optimizer,global_plan=global_plan, player_plan=player_plan)
         model.eval()
-        acc_loss, data = do_split(model,val,args.experiment,criterion)
+        acc_loss, data = do_split(model,val,args.experiment,criterion,global_plan=global_plan, player_plan=player_plan)
         
         data = list(zip(*data))
         for x in data:
@@ -219,6 +241,8 @@ def main(args):
     train = None
     if args.pov=='None':
         test = [GameParser(f,d_flag,0) for f in dataset_splits['test']]
+        if args.experiment > 2:
+            test += [GameParser(f,d_flag,4) for f in dataset_splits['test']]
     elif args.pov=='Third':
         test = [GameParser(f,d_flag,3) for f in dataset_splits['test']]
     elif args.pov=='First':
@@ -227,7 +251,7 @@ def main(args):
     else:
         print('POV must be in [None, First, Third], but got', args.pov)
     model.eval()
-    _, data = do_split(model,test,args.experiment,criterion)
+    _, data = do_split(model,test,args.experiment,criterion,global_plan=global_plan, player_plan=player_plan)
     
     print()
     print(data)
@@ -239,11 +263,15 @@ if __name__ == '__main__':
                     help='point of view [None, First, Third]')
     parser.add_argument('--use_dialogue', type=str, 
                     help='Use dialogue [Yes, No]')
+    parser.add_argument('--plans', type=str, 
+                    help='Use dialogue [Yes, No]')
     parser.add_argument('--seq_model', type=str, 
                     help='point of view [GRU, LSTM, Transformer]')
     parser.add_argument('--experiment', type=int, 
                     help='point of view [0:AggQ1, 1:AggQ2, 2:AggQ3, 3:P0Q1, 4:P0Q2, 5:P0Q3, 6:P1Q1, 7:P1Q2, 8:P1Q3]')
     parser.add_argument('--save_path', type=str, 
                     help='path where to save model')
+    parser.add_argument('--seed', type=str, 
+                    help='Use random or fixed seed [Random, Fixed]')
     
     main(parser.parse_args())

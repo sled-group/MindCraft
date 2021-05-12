@@ -20,8 +20,8 @@ class GameParser:
     def __init__(self, game_path, load_dialogue=True, pov=0):
         # print(game_path,end = ' ')
         self.load_dialogue = load_dialogue
-        if pov not in (0,1,2,3):
-            print('Point of view must be in (0,1,2,3), but got ', pov)
+        if pov not in (0,1,2,3,4):
+            print('Point of view must be in (0,1,2,3,4), but got ', pov)
             exit()
         self.pov = pov
         self.load_player1 = pov==1
@@ -290,10 +290,11 @@ class GameParser:
                             break
                     self.question_pairs.append(pair)
         self.question_pairs = sorted(self.question_pairs, key=lambda x: x[0][0])
-        if self.load_player2:
+        if self.load_player2 or self.pov==4:
             self.question_pairs = [sorted(q, key=lambda x: x[1],reverse=True) for q in self.question_pairs]
         else:
             self.question_pairs = [sorted(q, key=lambda x: x[1]) for q in self.question_pairs]
+        
         
         self.question_pairs = [((a[0], b[0], a[1], b[1], a[2], b[2]), (a[3], b[3])) for a,b in self.question_pairs]
 
