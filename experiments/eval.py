@@ -75,7 +75,7 @@ for k,v in sorted(game_types.items(),key=lambda x: x[0]):
     a = [int(x==y) for x,y in zip(g,p)]
     print(f'{sum(a)/len(a):0.3f}','\\\\',sep=' & \t')
     # print(v[0][0])
-exit()
+
 dataset_splits = json.load(open('dataset_splits.json'))
 
 games = sum(dataset_splits.values(),[])

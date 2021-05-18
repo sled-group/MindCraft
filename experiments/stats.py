@@ -317,7 +317,7 @@ for folder in ['out_with_plan']:#, 'out_without_plan']:
             # data2. append(([],[],[],[],''))
         # print('--------------------------------------------------------------------------------')
         print()
-        continue
+        # continue
 
         # g,p,a,f,xlbls = zip(*data2[:-1])
         g1,p1,a1,f1,g2,p2,a2,f2,av,fv,tss,xlbls = zip(*data2)
@@ -517,7 +517,7 @@ for folder in ['out_with_plan']:#, 'out_without_plan']:
             has_plan = folder.split('_',1)[1]
             plt.savefig(f'Bar_Accuracy_score_{exp}_{idx}_{has_plan}.png')
 
-        g1,p1,a1,f1,g2,p2,a2,f2,tss,xlbls = zip(*data2)
+        g1,p1,a1,f1,g2,p2,a2,f2,av,fv,tss,xlbls = zip(*data2)
         for idx,(g,p,a,f) in enumerate([(g1,p1,a1,f1),(g2,p2,a2,f2)]):
             if exp == 0:
                 exp_str = 'Predicting Completed Task Status'
