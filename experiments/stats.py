@@ -309,7 +309,7 @@ for folder in ['out_with_plan']:#, 'out_without_plan']:
                         else:
                             print('  V & ', end=' ')
                         print(f'{files[0].split("_")[-2]} & {np.mean(f):0.3f}({1.96*np.std(f)/np.sqrt(len(f)):0.3f})', end=' ')
-                        print(f' {np.mean(f):0.3f}({1.96*np.std(fv)/np.sqrt(len(fv)):0.3f}) \\\\')
+                        print(f' {np.mean(fv):0.3f}({1.96*np.std(fv)/np.sqrt(len(fv)):0.3f}) \\\\')
                     except Exception as e:
                         # print(e, file)
                         pass
@@ -368,7 +368,7 @@ for folder in ['out_with_plan']:#, 'out_without_plan']:
             gg = sum([list(xx) for xx in _g],[])
             pp = sum([list(xx) for xx in _p],[])
             plt.cla(); plt.clf();plt.close()
-            fig, ax1 = plt.subplots(figsize=(9, 6))
+            fig, ax1 = plt.subplots(figsize=(9, 7))
             bins = np.linspace(0.1, 1, 10)
             ay = [t for t,p,g in zip(ts,pp,gg) if p==g]
             an = [t for t,p,g in zip(ts,pp,gg) if not p==g]

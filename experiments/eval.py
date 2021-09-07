@@ -162,7 +162,7 @@ for i,(ex,ttl) in enumerate(zip([e1,e2,e3],['Completed Task Status', 'Other Play
     ax1.set_xlabel('Time of Question Being Asked Relative to Game Length')
     ax1.set_ylabel('Question Count')
     # ax1.set_xticks(bins)
-    ax1.legend(['Matches', 'Missmatches'])
+    ax1.legend(['Matches', 'Mismatches'])
     for x in bins:
         ax1.plot([x,x],[0,80],color='grey',linewidth=0.5,linestyle=':')
     
@@ -206,7 +206,7 @@ for i,(ex,ttl) in enumerate(zip([e1,e2,e3],['Completed Task Status', 'Other Play
     # ax1.set_xlabel('Time of Question Being Asked Relative to Game Length')
     # ax1.set_ylabel('Question Count')
     # # ax1.set_xticks(bins)
-    # ax1.legend(['Matches', 'Missmatches'])
+    # ax1.legend(['Matches', 'Mismatches'])
     # for x in bins:
     #     ax1.plot([x,x],[0,80],color='grey',linewidth=0.5,linestyle=':')
     
@@ -296,7 +296,7 @@ for i,ttl in enumerate(['Completed Task Status', 'Other Player\'s Knowledge', 'O
         ax1.set_xlabel('number of dialogue exchanges')
         ax1.set_ylabel('Question Count')
         # ax1.set_xticks(bins)
-        ax1.legend(['Matches', 'Missmatches'])
+        ax1.legend(['Matches', 'Mismatches'])
         for x in bins:
             ax1.plot([x,x],[0,max(max(h1),max(h2))+10],color='grey',linewidth=0.5,linestyle=':')
 
@@ -369,8 +369,8 @@ for i,ttl in enumerate(['Completed Task Status', 'Other Player\'s Knowledge', 'O
         c1 = [1.96*s/np.sqrt(l) for s,l in zip(s1,l1)]
         c2 = [1.96*s/np.sqrt(l) for s,l in zip(s2,l2)]
         width = 2/5
-        ax1.bar(bins-width/2, x1, width, color='blue', yerr=c1, capsize=7, alpha=0.5, label='Match')#, marker='x')
-        ax1.bar(bins+width/2, x2, width, color='orange', yerr=c2, capsize=7, alpha=0.5, label='Miss')#, marker='x')
+        ax1.bar(bins-width/2, x1, width, color='blue', yerr=c1, capsize=7, alpha=0.5, label='Matches')#, marker='x')
+        ax1.bar(bins+width/2, x2, width, color='orange', yerr=c2, capsize=7, alpha=0.5, label='Mismatches')#, marker='x')
         ax1.set_ylabel('Average Number of Dialogue Utternaces')
         ax1.set_ylim(0,7)
         ax1.set_xticks(bins)
@@ -394,7 +394,7 @@ for i,ttl in enumerate(['Completed Task Status', 'Other Player\'s Knowledge', 'O
         ax1.set_ylabel('Average Number of Dialogue Utternaces')
         ax1.set_ylim(0,7)
         ax1.set_xticks(bins)
-        ax1.set_xticklabels(['Match','Miss',])
+        ax1.set_xticklabels(['Matches','Mismatches',])
         plt.title(ttl)
         plt.legend()
         

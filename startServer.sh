@@ -25,9 +25,9 @@ printf "\nLog file created ${log_file}" | tee -a $log_file
 # Generate Plan
 
 printf "\nGenerating plan..."
-# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2 --disparate_knowledge # DK-DS
+python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=2 --lower_complex_lim=2 --num_tools=2 --disparate_knowledge # DK-DS
 
-python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=3 --lower_complex_lim=3 --num_tools=3 --disparate_knowledge # DK-DS
+# python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=3 --lower_complex_lim=3 --num_tools=3 --disparate_knowledge # DK-DS
 
 # python3 plan_generator/plan_generator.py --num_final_mat=1 --output_path=spigot/plan.json --upper_complex_lim=4 --lower_complex_lim=4 --num_tools=3 --disparate_knowledge # DK-DS
 

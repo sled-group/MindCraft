@@ -16,4 +16,6 @@ out
 *.png
 *.torch
 Videos
+*.zip
 .vscode
+*.txt
