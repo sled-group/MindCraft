@@ -1,8 +1,22 @@
-# Minecraft Collaborative Combinations (MCC)
+# MindCraft
+
+Authors: [Cristian-Paul Bara](https://sled.eecs.umich.edu/author/cristian-paul-bara/)\*, [Sky CH-Wang](https://skywang.me)\*, [Joyce Chai](https://web.eecs.umich.edu/~chaijy/)
+
+This is the official code repository for the paper ([arXiv link](https://arxiv.org/abs/2109.06275)): 
+> Cristian-Paul Bara, Sky CH-Wang, and Joyce Chai. 2021. MindCraft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks. In *Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)*.
+
+```
+@inproceedings{bara2021mindcraft,
+  title={MindCraft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks},
+  author={Bara, Cristian-Paul and CH-Wang, Sky and Chai, Joyce},
+  booktitle={Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year={2021}
+}
+```
 
 ## Installation Instructions
 
-This README assumes that the user is about to set up the MCC task on a to-be-newly-created _Ubuntu-based AWS EC2 Server_. If not, some commands may be invalid (e.g. `apt-get` vs. `apt`). This has been tested on both Ubuntu versions 18 and 20.
+This README assumes that the user is about to set up the MindCraft task on a to-be-newly-created _Ubuntu-based AWS EC2 Server_. If not, some commands may be invalid (e.g. `apt-get` vs. `apt`). This has been tested on both Ubuntu versions 18 and 20.
 
 __Server Setup & Port Forwarding__ (for reference, AWS port forwarding guidelines are adapted from [here](https://medium.com/@sumekenov/how-to-launch-minecraft-server-on-aws-7f4b9f7febf7)):
 
@@ -27,7 +41,7 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
       2. In the MYSQL commandline, run `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';` (replacing password with a password of your choosing).
       3. And finally `FLUSH PRIVILEGES;` to write changes to disk.
       4. To exit the MySQL commandline, `exit`.
-   5. To create your MySQL database (where all MCC user activity is recorded), enter the MySQL commandline this time with `mysql -u root -p`, and then entering the password you just created.
+   5. To create your MySQL database (where all MindCraft user activity is recorded), enter the MySQL commandline this time with `mysql -u root -p`, and then entering the password you just created.
    6. In the commandline interface, `CREATE DATABASE minecraft;` to create, and then `SHOW DATABASES;` to manually confirm the creation of the `minecraft` database. Before you `exit`, run `SHOW GLOBAL VARIABLES LIKE 'PORT';` to confirm the port that the MySQL server is running on (by default, it should be 3306).
    7. Finally, set up game server plugin authentication details! Before you proceed: if this is your first time setting this up, the files listed below may not have been created yet. To create these files, go ahead and start the server once with `bash startServer.sh`. You're going to see a _ton_ of errors appear, but hold out for now! When the server is done spinning up, enter `stop` to stop the server, and then proceed onto these sub-steps.
       1. Open `spigot/plugins/situatedDialogue/config.yml`, and change:
@@ -47,7 +61,7 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
 
 ## File Structure
 
-The MCC environment is split into __three__ main modules: (1) _initialization_, by which task variables (e.g. number of games, complexity of games, and more) are set to customized or default values; (2) _the game server_, a [Bukkit/Spigot](https://dev.bukkit.org/)-made Minecraft multiplayer server that hosts the game itself and records all in-game interactions; and (3) _the web server_, a MEAN-stack (mainly, Node.JS) web server that records webpage user interactions, where currently recording of player mental states takes place.
+The MindCraft environment is split into __three__ main modules: (1) _initialization_, by which task variables (e.g. number of games, complexity of games, and more) are set to customized or default values; (2) _the game server_, a [Bukkit/Spigot](https://dev.bukkit.org/)-made Minecraft multiplayer server that hosts the game itself and records all in-game interactions; and (3) _the web server_, a MEAN-stack (mainly, Node.JS) web server that records webpage user interactions, where currently recording of player mental states takes place.
 
 All recording of user data -both game server and through the web server- are consolidated into a local MySQL database, the authentication details of which are to be specifiied in initialization files (or left as default).
 
