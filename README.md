@@ -2,15 +2,23 @@
 
 Authors: [Cristian-Paul Bara](https://sled.eecs.umich.edu/author/cristian-paul-bara/)\*, [Sky CH-Wang](https://skywang.me)\*, [Joyce Chai](https://web.eecs.umich.edu/~chaijy/)
 
-This is the official code repository for the paper ([arXiv link](https://arxiv.org/abs/2109.06275)): 
+This is the official code repository for the paper ([anthology link](https://aclanthology.org/2021.emnlp-main.85/)): 
 > Cristian-Paul Bara, Sky CH-Wang, and Joyce Chai. 2021. MindCraft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks. In *Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)*.
 
 ```
-@inproceedings{bara2021mindcraft,
-  title={MindCraft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks},
-  author={Bara, Cristian-Paul and CH-Wang, Sky and Chai, Joyce},
-  booktitle={Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
-  year={2021}
+@inproceedings{bara-etal-2021-mindcraft,
+    title = "{M}ind{C}raft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks",
+    author = "Bara, Cristian-Paul  and
+      CH-Wang, Sky  and
+      Chai, Joyce",
+    booktitle = "Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+    year = "2021",
+    address = "Online and Punta Cana, Dominican Republic",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.emnlp-main.85",
+    pages = "1112--1125",
+    abstract = "An ideal integration of autonomous agents in a human world implies that they are able to collaborate on human terms. In particular, theory of mind plays an important role in maintaining common ground during human collaboration and communication. To enable theory of mind modeling in situated interactions, we introduce a fine-grained dataset of collaborative tasks performed by pairs of human subjects in the 3D virtual blocks world of Minecraft. It provides information that captures partners{'} beliefs of the world and of each other as an interaction unfolds, bringing abundant opportunities to study human collaborative behaviors in situated language communication. As a first step towards our goal of developing embodied AI agents able to infer belief states of collaborative partners in situ, we build and present results on computational models for several theory of mind tasks.",
 }
 ```
 
