@@ -96,13 +96,66 @@ class GraphGenerator():
                 self.graph[-1].make = [[edge[1],len(self.graph)]]
                 self.graph.append(Node())
             else:
-                self.graph[-1].make = [[edge[1],candidates[0]]]
+                cand_make = [[edge[1],candidates[0]]]
+                found = False
+                for x in self.graph:
+                    if x.make == cand_make:
+                        found = True
+                        break
+                if not found:
+                    self.graph[-1].make = [[edge[1],candidates[0]]]
+                else:
+                    print('!!!!!!')
+                    # exit()
+                    self.graph[-1].make = [[edge[1],len(self.graph)]]
+                    self.graph.append(Node())
 
         # assign tools to nodes
         tools = list(range(self.num_tools))
         for node in self.graph:
             random.shuffle(tools)
             node.tools = sorted(tools[0:min(self.max_tools_per_mat,random.randint(1,len(tools)))])
+            
+        depth_fun = lambda n: 1 if not n.make else 1 + depth_fun(self.graph[n.make[0][0]]) + depth_fun(self.graph[n.make[0][1]])
+
+        queue = [0]
+        visited = []
+        leafs = []
+        order = []
+        graph = []
+        while queue:
+            idx = queue.pop(0)
+            if idx in visited:
+                continue
+            visited.append(idx)
+            x = self.graph[idx]
+            if x.make:
+                queue.append(x.make[0][0])
+                queue.append(x.make[0][1])
+                if not graph or depth_fun(x) <= depth_fun(graph[-1]):
+                    graph.append(x)
+                    order.append(idx)
+                else:
+                    graph.insert(-1,x)
+                    order.insert(-1,idx)
+            else:
+                leafs.append((idx,x))
+
+        for idx, x in leafs:
+            order.append(idx)
+            graph.append(x)
+
+        for i, _ in enumerate(graph):
+            if graph[i].make:
+                graph[i].make[0][0] = order.index(graph[i].make[0][0])
+                graph[i].make[0][1] = order.index(graph[i].make[0][1])
+                graph[i].make[0] = sorted(graph[i].make[0])
+            
+        self.graph = graph
+                
+        # for i, x in enumerate(self.graph):
+        #     print(i,x,end=' ')
+        #     print(depth_fun(x))
 
         return self.graph
 
@@ -147,12 +200,15 @@ def main(args):
     
     print(ng, nm, nn)
     decision = []
-    if (nn % 2) == 1:
+    if (nn % 2) == 1 or nn > 2:
         decision.append(0)
     decision += [1]*(nn//2)
     decision += [2]*(nn//2)
     
+    # print(decision)
     shuffle(decision)
+    # print(decision)
+    decision = decision[:nn]
     print(decision)
     
     player1_graph = deepcopy(graph)
