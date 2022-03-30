@@ -31,6 +31,7 @@
   <script type="text/javascript">
 
     var materials = [/*$MATS*/];
+    var ques_bias = materials.length - 3
 
     // Types of questions we want:
     // 1. Do you think the other player knows what makes xxx?
@@ -53,7 +54,9 @@
             // Questions
             for (var i = 0; i < questions_each_time; i++) {
               var question = questions[Math.floor(Math.random() * questions.length)];
-              question = question.replace("XXX", materials[Math.floor(Math.random() * materials.length)]);
+
+              question = question.replace("XXX", materials[Math.floor((ques_bias + (materials.length - ques_bias)*Math.random()) * materials.length)]);
+              ques_bias = Math.max(0,ques_bias-2)
               url_to_open += 'questions=' + question + '&';
             }
             url_to_open += 'player=' + 'player1';
