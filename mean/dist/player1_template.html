@@ -55,7 +55,8 @@
             for (var i = 0; i < questions_each_time; i++) {
               var question = questions[Math.floor(Math.random() * questions.length)];
 
-              question = question.replace("XXX", materials[Math.floor((ques_bias + (materials.length - ques_bias)*Math.random()) * materials.length)]);
+              mat_idx = Math.floor((ques_bias + (materials.length - ques_bias)*Math.random()) * materials.length)
+              question = question.replace("XXX", materials[mat_idx]);
               ques_bias = Math.max(0,ques_bias-2)
               url_to_open += 'questions=' + question + '&';
             }
