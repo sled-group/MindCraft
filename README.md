@@ -54,7 +54,7 @@ __Required Depenencies__ (install these `ssh`ed into the EC2 machine):
    7. Finally, set up game server plugin authentication details! Before you proceed: if this is your first time setting this up, the files listed below may not have been created yet. To create these files, go ahead and start the server once with `bash startServer.sh`. You're going to see a _ton_ of errors appear, but hold out for now! When the server is done spinning up, enter `stop` to stop the server, and then proceed onto these sub-steps.
       1. Open `spigot/plugins/situatedDialogue/config.yml`, and change:
          1. `mysql_password` to what you defined in 2.4.2.
-         1. `mysql_port` to what you just confirmed in 2.4.6 (default is 3306).
+         2. `mysql_port` to what you just confirmed in 2.4.6 (default is 3306).
       2. Open `spigot/plugins/LogBlock/config.yml`, and change the same lines as above, this time under section `mysql`. Remember to also change the MySQL user here to `root` (default initialization has it as something else)!
       3. Open `mean/server.js` and do the same for MYSQL authentication credentials in the first few lines.
       4. Open `spigot/plugins/AdvancedReplay` and do the same for `mysql.yml`.
