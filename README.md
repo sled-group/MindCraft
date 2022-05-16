@@ -87,4 +87,4 @@ For replaying a specific previous game, make sure that the correct __plan file__
 
 ## Dataset
 
-A public download location is being prepared. To access the data please contact Cristian-Paul Bara [cpbara@umich.edu](cpbara@umich.edu)
+A public download location is being prepared. To access the data please contact [Cristian-Paul Bara](https://sled.eecs.umich.edu/author/cristian-paul-bara/) at [cpbara@umich.edu](cpbara@umich.edu)
