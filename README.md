@@ -84,3 +84,7 @@ __Web Server__: Navigate to the `mean` folder and run `npm start`. Do this _afte
 ## Replay
 
 For replaying a specific previous game, make sure that the correct __plan file__ of the logged game, indicated in the format `logs/logs.XXXXXXX.plan.json` (where XXX is the UNIX time stamp of when the game was played), is copied to the following folder and named as `plan_generator/plan.json`. After this has been done, start the server with `bash spigot/start.command` instead of the usual bash file. 
+
+## Dataset
+
+A public download location is being prepared. To access the data please contact Cristian-Paul Bara [cpbara@umich.edu](cpbara@umich.edu)
