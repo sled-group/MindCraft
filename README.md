@@ -87,4 +87,8 @@ For replaying a specific previous game, make sure that the correct __plan file__
 
 ## Dataset
 
-A public download location is being prepared. To access the data please contact [Cristian-Paul Bara](https://sled.eecs.umich.edu/author/cristian-paul-bara/) at [cpbara@umich.edu](cpbara@umich.edu)
+[Data](https://www.dropbox.com/s/ii0i5f3ufharefa/mindcraft_dataset.zip?dl=0)
+
+[Models](https://www.dropbox.com/s/u8cqi3nmz2zydoq/mindcraft_models.zip?dl=0)
+
+If you are having trouble accessing the data and models please contact [Cristian-Paul Bara](https://sled.eecs.umich.edu/author/cristian-paul-bara/) at [cpbara@umich.edu](cpbara@umich.edu)
