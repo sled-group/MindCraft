@@ -88,7 +88,7 @@ For replaying a specific previous game, make sure that the correct __plan file__
 ## Dataset
 
 [Data](https://huggingface.co/datasets/sled-umich/MindCraft)
-[//]: [Data](https://www.dropbox.com/s/ii0i5f3ufharefa/mindcraft_dataset.zip?dl=0)
+<!-- [Data](https://www.dropbox.com/s/ii0i5f3ufharefa/mindcraft_dataset.zip?dl=0) --->
 
 
 [Models](https://www.dropbox.com/s/u8cqi3nmz2zydoq/mindcraft_models.zip?dl=0)
